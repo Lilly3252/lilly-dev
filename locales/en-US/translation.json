@@ -1,134 +1,200 @@
 {
-	"command":{
-	   "config":{
-		  "common":{
-			 "errors":{
-				"generic": "An error occurred. Please try again later.",
-				"no_permission": "You do not have permission to use this command.",
-				"permission_not_found": "Permission {{perm}} not found.",
-				"no_settings":"No guild settings have been initialized yet. Lemme create one for you ! , should work this time..."
-			 }
-		  },
-		  "events":{
-			 "enabled":"✅ {{event}} is now enabled.",
-			 "disabled":"✅ {{event}} is now disabled.",
-			 "channel_set":"✅ {{channel}} has been set to {{channel_id}}.",
-			 "channel_removed":"✅ The channel has been removed , now set to `null`."
-		  }
-	   },
-	   "mod":{
-		  "embed":{
-			 "info":{
-				"name":"**❯ Name:** {{- name}}\n**❯ ID:** {{id}}\n",
-				"value":"**❯ Action:** {{action}}\n**❯ Reason:** {{reason}}"
-			 },
-			 "footer":"Moderation action"
-		  },
-		  "restrict":{
-			 "not_moderatable":"The specified user cannot be moderated."
-		  },
-		  "timeout":{
-			 "success":"{{user}} has been timed out for {{duration}}.",
-			 "no_reason":"No reason provided.",
-			 "not_moderatable":"The specified user cannot be moderated."
-		  },
-		  "kick":{
-			 "success":"Successfully kicked {{user}}.",
-			 "no_reason":"No reason provided.",
-			 "not_kickable":"The specified user cannot be kicked."
-		  },
-		  "lock":{
-			 "locked":"The channel has been locked.",
-			 "unlocked":"The channel has been unlocked."
-		  },
-		  "slowmode":{
-			 "success":"Slowmode has been set to {{time}} seconds in {{channel}}."
-		  },
-		  "ban":{
-			 "success":"Successfully banned {{user}}",
-			 "not_bannable":"{{- user}} cannot be banned."
-		  },
-		  "unban":{
-			 "success":"{{user}} has been unbanned.",
-			 "no_reason":"No reason provided.",
-			 "errors":{
-				"no_ids":"Please provide a valid user ID.",
-				"no_banned":"There are no banned users in this server.",
-				"no_ban":"User {{user}} is not banned."
-			 }
-		  },
-		  "blacklist":{
-			 "already_blacklisted":"This user is already blacklisted.",
-			 "added":"This user has been added to the blacklist."
-		  }
-	   },
-	   "utility":{
-		"poll": {
-			"durationError": "Duration must be between {{min}} and {{max}}",
-			"pollCreated": "Poll has been created successfully!",
-			"voteNow": "Vote Now"
+	"command": {
+		"config": {
+			"common": {
+				"errors": {
+					"generic": "An error occurred. Please try again later.",
+					"no_permission": "You do not have permission to use this command.",
+					"permission_not_found": "Permission {{perm}} not found.",
+					"no_settings": "No guild settings have been initialized yet. Lemme create one for you ! , should work this time..."
+				}
+			},
+			"events": {
+				"enabled": "✅ {{event}} is now enabled.",
+				"disabled": "✅ {{event}} is now disabled.",
+				"channel_set": "✅ {{channel}} has been set to {{channel_id}}.",
+				"channel_removed": "✅ The channel has been removed , now set to `null`."
+			}
 		},
-		  "ping":{
-			 "success":"{{response}} Bot latency is {{bot_latency}} ms. API latency is {{API_latency}} ms.",
-			 "responses":{
-				"nah":"nah..",
-				"okay":"i'm okay.. move on",
-				"alive":"i'm alive!"
-			 }
-		  }
-	   }
-	},
-	"info":{
-	   "member":{
-		  "name":"Member",
-		  "value":"**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Status:** {{status}}",
-		  "other":"**❯ Created at:** {{- created_at}}\n**❯ Joined at:** {{- joined_at}}\n**❯ Pending:** {{- pending}}\n**❯ Timed out:** {{- is_timed_out}}\n**❯ Bot:** {{- is_bot}}\n"
-	   },
-	   "user":{
-		  "name":"User",
-		  "value":"**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Time Created:** {{- time_create}}"
-	   },
-	   "bot":{
-		  "name":"Member",
-		  "system":"**❯ Platform:** {{platform}}\n**❯ Uptime:** {{uptime}}\n**❯ CPU:**\n\u3000 Cores: {{cores}}\n\u3000 Model: {{model}}\n\u3000 Speed: {{speed}}\n**❯ Memory:**\n\u3000 Total: {{total_memory}}\n\u3000 Used: {{used_memory}}\n",
-		  "info":"**❯ Owner:** {{- owner}}\n**❯ Servers:** {{servers}}\n**❯ Users:** {{users}}\n**❯ Channels:** {{channels}}\n**❯ Creation Date:** {{- create_date}}\n**❯ Node.js:** {{node}}\n**❯ TypeScript Version:** {{ts}}\n**❯ Discord.js:** {{djs}}\n\u200B"
-	   },
-	   "channel":{
-		  "value":"**❯ ID:** {{id}}\n**❯ Name:** {{name}} \n**❯ NSFW:** {{nsfw}}\n**❯ Slowmode:** {{slowmode}}\n**❯ Private Channel:** {{private}}\n**❯ Topic Channel:** {{topic}}"
-	   },
-	   "role":{
-		  "other":"**❯ Position:** {{- position}}\n**❯ Permissions:** {{- permissions}}",
-		  "other2":"\n\u200b\n\u200b {{- permissions}}",
-		  "value":"**❯ Name:** {{- name}}\n**❯ Role ID:** {{role_id}}\n**❯ Color:** {{color}}\n**❯ Hoisted:** {{hoisted}}\n**❯ Mentionable:** {{mentionable}}"
-	   },
-	   "server":{
-		  "info":"**❯ Name:** {{- name}}\n**❯ ID:** {{id}}\n**❯ Owner:** {{owner}}\n**❯ Boost Tier:** {{booster_tier}}\n**❯ Explicit Filter:** {{explicit_filter}}\n**❯ Verification Level:** {{verification_level}}\n**❯ Time Created:** {{- created_at}}\n\u200B",
-		  "stats":"**❯ Role Count:** {{role_count}}\n**❯ Emoji Count:** {{emoji_count}}\n**❯ Regular Emoji Count:** {{regular_emoji}}\n**❯ Animated Emoji Count:** {{animated_emoji}}\n**❯ Member Count:** {{member_count}}\n**❯ Humans:** {{humans}}\n**❯ Bots:** {{bots}}\n**❯ Text Channels:** {{txt_chan}}\n**❯ Voice Channels:** {{voice_chan}}\n**❯ Stage Channels:** {{stage_chan}}\n**❯ Boost Count:** {{boost_count}}\n\u200B",
-		  "presence":"**❯ Online:** {{online}}\n**❯ Idle:** {{idle}}\n**❯ Do Not Disturb:** {{dnd}}\n**❯ Offline:** {{offline}}\n**❯ No presence detected:** {{no_presence}}\n\u200B"
-	   }
-	},
-	"log":{
-	   "setting_log":{
-		  "no_info":"No information yet.",
-		  "channel_title":"Channels",
-		  "channel_description":"**\u3000❯ Welcome Channel:** <#{{welcome_channel}}>\n **\u3000❯ Mod-Log Channel:** <#{{log_channel}}>\n **Anti-raid:** {{anti_raid_enabled}}\n **Audit Logs:** {{audit_log_enabled}}",
-		  "event_title":"Event Updates",
-		  "event_description":"**\u3000❯ Bot:** {{bot}}\n **\u3000❯ Roles:** {{role}}\n **\u3000❯ Guild:** {{guild}}\n **\u3000❯ Emojis:** {{emoji}}\n **\u3000❯ Threads:** {{thread}}\n **\u3000❯ Messages:** {{message}}\n **\u3000❯ Webhooks:** {{webhooks}}\n **\u3000❯ Stage Events:** {{stage}}\n ",
-		  "event_description2":"**\u3000❯ Stickers:** {{sticker}}\n **\u3000❯ Channels:** {{channel}}\n **\u3000❯ Invitations:** {{invitations}}\n **\u3000❯ Integrations:** {{integration}}\n **\u3000❯ Guild Members:** {{guild_member}}\n **\u3000❯ Auto-Moderation:** {{auto_moderation}}\n **\u3000❯ Scheduled Events:** {{scheduled}}\n **\u3000❯ Commands Permissions:** {{cmd_perm}}"
-	   },
-	   "":{
-		  
-	   }
-	},
-	"modal":{
-	   "character_create":{
-		  "title":"Character Creation",
-		  "nameInput":{
-			 "label":"What's the name of your character?"
-		  },
-		  "hobbiesInput":{
-			 "label":"What's the hobbies your character has?"
-		  }
-	   }
+		"mod": {
+			"embed": {
+				"info": {
+					"name": "**❯ Name:** {{- name}}\n**❯ ID:** {{id}}\n",
+					"value": "**❯ Action:** {{action}}\n**❯ Reason:** {{reason}}"
+				},
+				"footer": "Moderation action"
+			},
+			"restrict": {
+				"not_moderatable": "The specified user cannot be moderated."
+			},
+			"timeout": {
+				"success": "{{user}} has been timed out for {{duration}}.",
+				"no_reason": "No reason provided.",
+				"not_moderatable": "The specified user cannot be moderated."
+			},
+			"kick": {
+				"success": "Successfully kicked {{user}}.",
+				"no_reason": "No reason provided.",
+				"not_kickable": "The specified user cannot be kicked."
+			},
+			"lock": {
+				"locked": "The channel has been locked.",
+				"unlocked": "The channel has been unlocked."
+			},
+			"slowmode": {
+				"success": "Slowmode has been set to {{time}} seconds in {{channel}}."
+			},
+			"ban": {
+				"success": "Successfully banned {{user}}",
+				"not_bannable": "{{- user}} cannot be banned."
+			},
+			"unban": {
+				"success": "{{user}} has been unbanned.",
+				"no_reason": "No reason provided.",
+				"errors": {
+					"no_ids": "Please provide a valid user ID.",
+					"no_banned": "There are no banned users in this server.",
+					"no_ban": "User {{user}} is not banned."
+				}
+			},
+			"blacklist": {
+				"already_blacklisted": "This user is already blacklisted.",
+				"added": "This user has been added to the blacklist."
+			}
+		},
+		"utility": {
+			"poll": {
+				"durationError": "Duration must be between {{min}} and {{max}}",
+				"pollCreated": "Poll has been created successfully!",
+				"voteNow": "Vote Now"
+			},
+			"ping": {
+				"success": "{{response}} Bot latency is {{bot_latency}} ms. API latency is {{API_latency}} ms.",
+				"responses": {
+					"nah": "nah..",
+					"okay": "i'm okay.. move on",
+					"alive": "i'm alive!"
+				}
+			},
+			"pet": {
+				"error": {
+					"no_pet": "You do not have a pet.",
+					"item_not_found": "Item not found in shop.",
+					"user_not_found": "User not found.",
+					"quest_completed": "You have already completed this quest.",
+					"skill_known": "Your pet already knows this skill.",
+					"quest_expired": "This quest has expired.",
+					"quest_not_exist": "This quest does not exist.",
+					"not_enough_coins": "You do not have enough coins to buy this item.",
+					"provide_both": "Please provide both a pet name and pet type.",
+					"invalid_pet_type": "Invalid pet type. Please choose a valid pet type.",
+					"already_have_pet": "You already have a pet.",
+					"battle_required": "Both users must have a pet to battle.",
+					"daily_claimed": "You have already claimed your daily reward. Please try again later.",
+					"no_pet_play": "You do not have a pet to play with."
+				},
+				"skill_learned": "Your pet has learned the skill: {{skill}}!",
+				"item_bought": "You have bought a {{itemName}}. This item is added to your pet's inventory.",
+				"adopted_pet": "You have adopted a {{petType}} named {{petName}}!",
+				"status": "Pet Name: {{petName}}\nType: {{petType}}\nHunger: {{hunger}}\nHappiness: {{happiness}}",
+				"battle": {
+					"win": "Your pet {{userPetName}} won the battle against {{opponentPetName}}!",
+					"lose": "Your pet {{userPetName}} lost the battle against {{opponentPetName}}.",
+					"tie": "It's a tie between {{userPetName}} and {{opponentPetName}}!"
+				},
+				"quest": {
+					"completed": "You have completed the quest: {{questName}} and earned {{reward}}!",
+					"started": "You have started the quest: {{questName}}!",
+					"progress": "Progress: {{progress}}%",
+					"quest_name": {
+						"feed_pet": "Feed your pet",
+						"train_pet": "Train your pet",
+						"pet_show": "Participate in a pet show",
+						"walk_pet": "Walk your pet",
+						"play_fetch_pet": "Play fetch with your pet",
+						"visit_the_vet": "Visit the vet",
+						"teach_pet_trick": "Teach your pet a new trick",
+						"pet_costume_contest": "Enter a pet costume contest",
+						"pet_spa_day": "Pet spa day"
+					},
+					"quest_description": {
+						"feed_pet": "Feed your pet to keep it happy and healthy.",
+						"train_pet": "Spend time training your pet to improve its skills.",
+						"pet_show": "Enter your pet in a local pet show and try to win a prize.",
+						"walk_pet": "Take your pet for a walk to boost its happiness.",
+						"play_fetch_pet": "Spend time playing fetch to keep your pet active.",
+						"visit_the_vet": "Take your pet to the vet for a routine check-up.",
+						"teach_pet_trick": "Spend time teaching your pet a new trick to impress others.",
+						"pet_costume_contest": "Dress up your pet for a costume contest.",
+						"pet_spa_day": "Take your pet to the spa for relaxation and grooming."
+					}
+				},
+				"used_item": "You have used {{itemName}}. Health is now {{health}}.",
+				"daily_reward": "You have claimed your daily reward of {{dailyReward}} coins!",
+				"fed_pet": "You have fed your pet {{itemName}}. Hunger is now {{hunger}} and health is now {{health}}.",
+				"played_with_pet": "You have played with {{petName}}. Happiness is now {{happiness}}."
+			},
+			"info": {
+				"member": {
+					"name": "Member",
+					"value": "**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Status:** {{status}}",
+					"other": "**❯ Created at:** {{- created_at}}\n**❯ Joined at:** {{- joined_at}}\n**❯ Pending:** {{- pending}}\n**❯ Timed out:** {{- is_timed_out}}\n**❯ Bot:** {{- is_bot}}\n"
+				},
+				"user": {
+					"name": "User",
+					"value": "**❯ Username:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Time Created:** {{- time_create}}"
+				},
+				"bot": {
+					"name": "Member",
+					"system": "**❯ Platform:** {{platform}}\n**❯ Uptime:** {{uptime}}\n**❯ CPU:**\n\u3000 Cores: {{cores}}\n\u3000 Model: {{model}}\n\u3000 Speed: {{speed}}\n**❯ Memory:**\n\u3000 Total: {{total_memory}}\n\u3000 Used: {{used_memory}}\n",
+					"info": "**❯ Owner:** {{- owner}}\n**❯ Servers:** {{servers}}\n**❯ Users:** {{users}}\n**❯ Channels:** {{channels}}\n**❯ Creation Date:** {{- create_date}}\n**❯ Node.js:** {{node}}\n**❯ TypeScript Version:** {{ts}}\n**❯ Discord.js:** {{djs}}\n\u200B"
+				},
+				"channel": {
+					"value": "**❯ ID:** {{id}}\n**❯ Name:** {{name}} \n**❯ NSFW:** {{nsfw}}\n**❯ Slowmode:** {{slowmode}}\n**❯ Private Channel:** {{private}}\n**❯ Topic Channel:** {{topic}}"
+				},
+				"role": {
+					"other": "**❯ Position:** {{- position}}\n**❯ Permissions:** {{- permissions}}",
+					"other2": "\n\u200b\n\u200b {{- permissions}}",
+					"value": "**❯ Name:** {{- name}}\n**❯ Role ID:** {{role_id}}\n**❯ Color:** {{color}}\n**❯ Hoisted:** {{hoisted}}\n**❯ Mentionable:** {{mentionable}}"
+				},
+				"server": {
+					"info": "**❯ Name:** {{- name}}\n**❯ ID:** {{id}}\n**❯ Owner:** {{owner}}\n**❯ Boost Tier:** {{booster_tier}}\n**❯ Explicit Filter:** {{explicit_filter}}\n**❯ Verification Level:** {{verification_level}}\n**❯ Time Created:** {{- created_at}}\n\u200B",
+					"stats": "**❯ Role Count:** {{role_count}}\n**❯ Emoji Count:** {{emoji_count}}\n**❯ Regular Emoji Count:** {{regular_emoji}}\n**❯ Animated Emoji Count:** {{animated_emoji}}\n**❯ Member Count:** {{member_count}}\n**❯ Humans:** {{humans}}\n**❯ Bots:** {{bots}}\n**❯ Text Channels:** {{txt_chan}}\n**❯ Voice Channels:** {{voice_chan}}\n**❯ Stage Channels:** {{stage_chan}}\n**❯ Boost Count:** {{boost_count}}\n\u200B",
+					"presence": "**❯ Online:** {{online}}\n**❯ Idle:** {{idle}}\n**❯ Do Not Disturb:** {{dnd}}\n**❯ Offline:** {{offline}}\n**❯ No presence detected:** {{no_presence}}\n\u200B"
+				}
+			},
+			"user_note": {
+				"errors": {
+					"user_not_specified": "Please specify a user.",
+					"note_not_provided": "Please provide a note to add.",
+					"user_note_not_found": "No notes found for {{target}}.",
+					"index_note_not_found": "No notes found at index {{note}}.`"
+				},
+				"note_added": "Note added for {{target}}.",
+				"note_view": "Notes for {{target}}:\n{{notesList}}",
+				"note_deleted": "Note {{note}} deleted for {{target}}."
+			},
+			"log": {
+				"setting_log": {
+					"no_info": "No information yet.",
+					"channel_title": "Channels",
+					"channel_description": "**\u3000❯ Welcome Channel:** <#{{welcome_channel}}>\n **\u3000❯ Mod-Log Channel:** <#{{log_channel}}>\n **Anti-raid:** {{anti_raid_enabled}}\n **Audit Logs:** {{audit_log_enabled}}",
+					"event_title": "Event Updates",
+					"event_description": "**\u3000❯ Bot:** {{bot}}\n **\u3000❯ Roles:** {{role}}\n **\u3000❯ Guild:** {{guild}}\n **\u3000❯ Emojis:** {{emoji}}\n **\u3000❯ Threads:** {{thread}}\n **\u3000❯ Messages:** {{message}}\n **\u3000❯ Webhooks:** {{webhooks}}\n **\u3000❯ Stage Events:** {{stage}}\n ",
+					"event_description2": "**\u3000❯ Stickers:** {{sticker}}\n **\u3000❯ Channels:** {{channel}}\n **\u3000❯ Invitations:** {{invitations}}\n **\u3000❯ Integrations:** {{integration}}\n **\u3000❯ Guild Members:** {{guild_member}}\n **\u3000❯ Auto-Moderation:** {{auto_moderation}}\n **\u3000❯ Scheduled Events:** {{scheduled}}\n **\u3000❯ Commands Permissions:** {{cmd_perm}}"
+				}
+			},
+			"modal": {
+				"character_create": {
+					"title": "Character Creation",
+					"nameInput": {
+						"label": "What's the name of your character?"
+					},
+					"hobbiesInput": {
+						"label": "What's the hobbies your character has?"
+					}
+				}
+			}
+		}
 	}
- }
+}
