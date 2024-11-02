@@ -1,6 +1,6 @@
 ---
-name: issue template
-about: Custom issue template for ...issues?
+name: General issues
+about: Create a report to help us improve
 title: ''
 labels: ''
 assignees: ''
@@ -17,7 +17,6 @@ This issue [describes/reports/fixes/replaces] the [feature/bug/etc].
 ## What type of issue is this? (check all applicable)
 
 - [ ] 🐛 Bug Report
-- [ ] 🌟 Feature Request
 - [ ] 📄 Documentation Issue
 - [ ] 🎨 Style Issue
 - [ ] 🧑‍💻 Code Refactor Request
