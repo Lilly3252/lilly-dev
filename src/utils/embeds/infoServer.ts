@@ -1,3 +1,4 @@
+import guilds from "#database/models/guilds.js";
 import { InfoCommand } from "#slashyInformations/index.js";
 import { trimRole } from "#utils/index.js";
 import { truncateEmbed } from "@yuudachi/framework";
@@ -5,16 +6,16 @@ import { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, Channel, ChannelType, Collection, GuildEmoji, GuildExplicitContentFilter, GuildMember, GuildVerificationLevel, RoleMention, TimestampStyles, time } from "discord.js";
 import i18next from "i18next";
 
-export function serverInfo(
+export async function serverInfo(
 	args: ArgsParam<typeof InfoCommand>,
 	interaction: InteractionParam,
 	roles: RoleMention[],
 	owner: GuildMember,
 	members: Collection<string, GuildMember>,
 	emojis: Collection<string, GuildEmoji>,
-	channels: Collection<string, Channel>,
-	locale: string
-): APIEmbed {
+	channels: Collection<string, Channel>
+): Promise<APIEmbed> {
+	const guild = await guilds.findOne({ guildID: interaction.guild.id });
 	const generalInfo: APIEmbedField = {
 		name: "General",
 		value: i18next.t("info.server.info", {
@@ -25,13 +26,13 @@ export function serverInfo(
 			explicit_filter: GuildExplicitContentFilter[interaction.guild.explicitContentFilter].replace(/([a-z])([A-Z])/g, "$1 $2"),
 			verification_level: GuildVerificationLevel[interaction.guild.verificationLevel],
 			created_at: time(interaction.guild.createdAt, TimestampStyles.RelativeTime),
-			lng: locale
+			lng: guild?.defaultLanguage
 		})
 	};
 
 	const embed: APIEmbed = {
 		author: { name: "Bot Information" },
-		thumbnail: { url: interaction.guild.iconURL() },
+		thumbnail: { url: interaction.guild.iconURL()! },
 		fields: [generalInfo]
 	};
 
@@ -50,7 +51,7 @@ export function serverInfo(
 				voice_chan: channels.filter((channel) => channel.type === ChannelType.GuildVoice).size,
 				stage_chan: channels.filter((channel) => channel.type === ChannelType.GuildStageVoice).size,
 				boost_count: interaction.guild.premiumSubscriptionCount || "0",
-				lng: locale
+				lng: guild?.defaultLanguage
 			})
 		};
 
@@ -62,7 +63,7 @@ export function serverInfo(
 				dnd: members.filter((member) => member.presence?.status === "dnd").size,
 				offline: members.filter((member) => member.presence?.status === "offline").size,
 				no_presence: members.filter((member) => !member.presence).size,
-				lng: locale
+				lng: guild?.defaultLanguage
 			})
 		};
 
@@ -73,7 +74,7 @@ export function serverInfo(
 			value: trimRole(mappedRoles).join(", ")
 		};
 
-		embed.fields.push(statistics, presence, rolesField);
+		embed.fields!.push(statistics, presence, rolesField);
 	}
 
 	return truncateEmbed(embed);

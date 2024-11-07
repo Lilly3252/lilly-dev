@@ -30,6 +30,53 @@ export const SettingCommand = {
 		},
 		{
 			type: ApplicationCommandOptionType.Subcommand,
+			name: "language",
+			description: "Modify the default language of the bot.",
+			description_localizations: {
+				fr: "Modifier le language par default."
+			},
+
+			options: [
+				{
+					type: ApplicationCommandOptionType.String,
+					name: "lng",
+					name_localizations: {
+						fr: "langues"
+					},
+					description: "Default language of the bot",
+					description_localizations: {
+						fr: "Language par default"
+					},
+					choices: [
+						{
+							name: "English",
+							value: "en-US"
+						},
+						{
+							name: "French",
+							value: "fr-FR"
+						},
+						{
+							name: "Japanese",
+							value: "ja-JP"
+						}
+					]
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
+				}
+			]
+		},
+		{
+			type: ApplicationCommandOptionType.Subcommand,
 			name: "audit_log",
 			description: "Enable/disable audit logs",
 			description_localizations: {

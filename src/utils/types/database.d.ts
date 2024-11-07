@@ -1,12 +1,13 @@
 import { Snowflake } from "discord.js";
-import { Types } from "mongoose";
+import { Document, Types } from "mongoose";
 
-export interface guild {
+export interface guild extends Document {
 	guildID: string;
 	name: string;
 	auditLogEvent: boolean;
 	logChannelID: string | null;
 	welcomeChannelID: string | null;
+	defaultLanguage: string;
 	guildSettings: Types.Array<guildSettings>;
 	safeRoles: string[];
 	restrictEmbedRole: string;
@@ -49,12 +50,12 @@ export interface user {
 		petType: string;
 		hunger: number;
 		happiness: number;
-		health: number; // New field for health
+		health: number;
 		lastFed: Date;
 		lastPlayed: Date;
 		level: number;
 		experience: number;
-		skills: string[]; // New field for skills
+		skills: string[];
 		inventory: {
 			medicine: Array<{
 				itemName: string;
@@ -73,7 +74,6 @@ export interface user {
 	coins: number;
 	lastDaily: Date;
 	quests?: Array<{
-		// New field for quests
 		questName: string;
 		completed: boolean;
 		progress: number;

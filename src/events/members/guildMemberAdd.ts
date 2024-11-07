@@ -12,6 +12,8 @@ export default class implements Event {
 	public constructor(public readonly client: Client<true>) {}
 
 	public async execute(): Promise<void> {
-		this.client.on(this.event, async () => {});
+		this.client.on(this.event, async (member) => {
+			console.log(member);
+		});
 	}
 }

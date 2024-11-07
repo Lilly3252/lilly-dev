@@ -1,15 +1,17 @@
-import ms from "ms";
-import os from "os";
-const b = os.cpus()[0];
+import guilds from "#database/models/guilds.js";
+import { InfoCommand } from "#slashyInformations/index.js";
+import { formatBytes } from "#utils/index.js";
 import { truncateEmbed } from "@yuudachi/framework";
 import { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, ClientApplication, TimestampStyles, time } from "discord.js";
-import * as Package from "../../../package.json" with { type: "json" };
 import i18next from "i18next";
-import { formatBytes } from "#utils/index.js";
-import { InfoCommand } from "#slashyInformations/index.js";
+import ms from "ms";
+import os from "os";
+import * as Package from "../../../package.json" with { type: "json" };
+const b = os.cpus()[0];
 
-export function botInfo(application: ClientApplication, interaction: InteractionParam, args: ArgsParam<typeof InfoCommand>, locale: string) {
+export async function botInfo(application: ClientApplication, interaction: InteractionParam, args: ArgsParam<typeof InfoCommand>) {
+	const guild = await guilds.findOne({ guildID: interaction.guild.id });
 	const info: APIEmbedField = {
 		name: "Information",
 		value: i18next.t("info.bot.info", {
@@ -21,7 +23,7 @@ export function botInfo(application: ClientApplication, interaction: Interaction
 			node: process.version,
 			ts: `v${Package.default.dependencies["typescript"].replace("^", "")}`,
 			djs: `v${Package.default.dependencies["discord.js"].replace("^", "")}`,
-			lng: locale
+			lng: guild?.defaultLanguage
 		}),
 		inline: true
 	};
@@ -29,7 +31,7 @@ export function botInfo(application: ClientApplication, interaction: Interaction
 		author: {
 			name: `Bot Information`
 		},
-		thumbnail: { url: application.guild.iconURL() },
+		thumbnail: { url: application?.guild?.iconURL() as string },
 		fields: [info],
 		footer: {
 			text: `Flags : ${application.flags?.toArray().map((key) =>
@@ -51,7 +53,7 @@ export function botInfo(application: ClientApplication, interaction: Interaction
 				speed: b.speed,
 				total_memory: formatBytes(process.memoryUsage().heapTotal),
 				used_memory: formatBytes(process.memoryUsage().heapUsed),
-				lng: locale
+				lng: guild?.defaultLanguage
 			}),
 			inline: true
 		};

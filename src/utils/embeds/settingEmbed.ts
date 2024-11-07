@@ -1,18 +1,20 @@
+import guilds from "#database/models/guilds.js";
 import { emojify, isEnabled } from "#utils/functions.js";
 import type { guild } from "#utils/types/database.js";
 import { truncateEmbed } from "@yuudachi/framework";
-import type { InteractionParam, LocaleParam } from "@yuudachi/framework/types";
+import type { InteractionParam } from "@yuudachi/framework/types";
 import type { APIEmbed, APIEmbedField } from "discord.js";
 import i18next from "i18next";
 
-export function settingEmbed(interaction: InteractionParam, guild_db: guild, locale: LocaleParam): APIEmbed {
+export async function settingEmbed(interaction: InteractionParam, guild_db: guild): Promise<APIEmbed> {
+	const guild = await guilds.findOne({ guildID: interaction.guild.id });
 	const settings = guild_db.guildSettings[0];
 
 	const description: APIEmbedField = {
-		name: i18next.t("log.setting_log.channel_title", { lng: locale }),
+		name: i18next.t("log.setting_log.channel_title", { lng: guild?.defaultLanguage }),
 		value: i18next.t("log.setting_log.channel_description", {
-			welcome_channel: guild_db.welcomeChannelID ?? i18next.t("log.setting_log.no_info", { lng: locale }),
-			log_channel: guild_db.logChannelID ?? i18next.t("log.setting_log.no_info", { lng: locale }),
+			welcome_channel: guild_db.welcomeChannelID ?? i18next.t("log.setting_log.no_info", { lng: guild?.defaultLanguage }),
+			log_channel: guild_db.logChannelID ?? i18next.t("log.setting_log.no_info", { lng: guild?.defaultLanguage }),
 			anti_raid_enabled: isEnabled(settings.antiRaid),
 			audit_log_enabled: isEnabled(guild_db.auditLogEvent)
 		})
@@ -21,14 +23,14 @@ export function settingEmbed(interaction: InteractionParam, guild_db: guild, loc
 	const embed: APIEmbed = {
 		author: {
 			name: `${interaction.guild.name} Server settings`,
-			icon_url: interaction.guild.iconURL()
+			icon_url: interaction.guild.iconURL()!
 		},
 		fields: [description]
 	};
 
 	if (guild_db.auditLogEvent) {
 		const eventDescription: APIEmbedField = {
-			name: i18next.t("log.setting_log.event_title", { lng: locale }),
+			name: i18next.t("log.setting_log.event_title", { lng: guild?.defaultLanguage }),
 			value: i18next.t("log.setting_log.event_description", {
 				bot: emojify({ mode: settings.botUpdate, space: 20, separator: "\u2008" }),
 				role: emojify({ mode: settings.roleUpdate, space: 17, separator: "\u2008" }),
@@ -38,7 +40,7 @@ export function settingEmbed(interaction: InteractionParam, guild_db: guild, loc
 				message: emojify({ mode: settings.messageUpdate, space: 9, separator: "\u2008" }),
 				webhooks: emojify({ mode: settings.webhookUpdate, space: 8, separator: "\u2008" }),
 				stage: emojify({ mode: settings.stageInstanceUpdate, space: 3, separator: "\u2008" }),
-				lng: locale
+				lng: guild?.defaultLanguage
 			}),
 			inline: true
 		};
@@ -54,12 +56,12 @@ export function settingEmbed(interaction: InteractionParam, guild_db: guild, loc
 				auto_moderation: emojify({ mode: settings.autoModeration, space: 16, separator: "\u2008" }),
 				scheduled: emojify({ mode: settings.guildScheduledUpdate, space: 15, separator: "\u2008" }),
 				cmd_perm: emojify({ mode: settings.commandPermission, space: 4, separator: "\u2008" }),
-				lng: locale
+				lng: guild?.defaultLanguage
 			}),
 			inline: true
 		};
 
-		embed.fields.push(eventDescription, eventDescription2);
+		embed.fields!.push(eventDescription, eventDescription2);
 	}
 
 	return truncateEmbed(embed);

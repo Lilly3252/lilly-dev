@@ -203,10 +203,17 @@ export const PetCommand = {
 			description: "Start a quest",
 			options: [
 				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "new",
+					description: "is it a new quest?",
+					required: true
+				},
+				{
 					type: ApplicationCommandOptionType.String,
 					name: "questname",
 					description: "The name of the quest",
-					required: true
+					required: true,
+					autocomplete: true
 				}
 			]
 		},

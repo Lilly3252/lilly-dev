@@ -11,7 +11,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 const tags = new Collection<string, Tag>();
 
 export default class extends Command<typeof TagCommand> {
-	public override async autocomplete(interaction: InteractionParam<CommandMethod.Autocomplete>, args: ArgsParam<typeof TagCommand>, locale: LocaleParam): Promise<void> {
+	public override async autocomplete(interaction: InteractionParam<CommandMethod.Autocomplete>): Promise<void> {
 		const fileExists = existsSync(`./dist/tags/${interaction.guildId}-tags.toml`);
 		if (!fileExists) {
 			writeFileSync(`./dist/tags/${interaction.guildId}-tags.toml`, "");
@@ -29,7 +29,7 @@ export default class extends Command<typeof TagCommand> {
 	}
 
 	// slash command section
-	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof TagCommand>, locale: LocaleParam): Promise<void> {
+	public override async chatInput(interaction: InteractionParam): Promise<void> {
 		const tagName = interaction.options.getString("query", true);
 
 		const tag = tags.find((t) => t.keywords.toString() === tagName.toLowerCase());

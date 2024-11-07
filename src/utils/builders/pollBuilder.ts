@@ -31,7 +31,7 @@ export class PollBuilder {
 	 * @returns The current instance of PollBuilder.
 	 * @throws Will throw an error if the answer is not a non-empty string.
 	 */
-	addAnswer(answer: string, emoji: EmojiIdentifierResolvable | null = null): this {
+	addAnswer(answer: string, emoji: EmojiIdentifierResolvable | undefined): this {
 		if (typeof answer !== "string" || answer.trim() === "") {
 			throw new Error("Answer must be a non-empty string.");
 		}
@@ -49,7 +49,7 @@ export class PollBuilder {
 		if (!Array.isArray(answers) || answers.length < 2 || answers.length > 10) {
 			throw new Error("Answers must be an array with at least two and at most ten non-empty strings.");
 		}
-		this.answers = answers.filter((ans) => typeof ans === "string" && ans.trim() !== "").map((ans) => ({ text: ans, emoji: null }));
+		this.answers = answers.filter((ans) => typeof ans === "string" && ans.trim() !== "").map((ans) => ({ text: ans, emoji: undefined }));
 		if (this.answers.length < 2) {
 			throw new Error("Poll must have at least two valid answers.");
 		}

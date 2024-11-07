@@ -1,24 +1,23 @@
 import guilds from "#database/models/guilds.js";
-import users from "#database/models/users.js";
+import { default as user, default as users } from "#database/models/users.js";
 import { InteractionParam } from "@yuudachi/framework/types";
-import { ChatInputCommandInteraction, Guild, GuildMember, GuildTextBasedChannel, PermissionResolvable, Role, RoleMention } from "discord.js";
+import { AuditLogChange, ChatInputCommandInteraction, Guild, GuildMember, GuildTextBasedChannel, PermissionResolvable, Role, RoleMention } from "discord.js";
 import i18next from "i18next";
 import { guild } from "./types/database.js";
 import { EmojifyOptions } from "./types/functiontypes.js";
 
-let locale: string;
-
 export async function permission(interaction: InteractionParam, permission: PermissionResolvable) {
-	const perms = interaction.guild.members.me.permissions.has(permission);
+	const guild = await guilds.findOne({ guildID: interaction.guildId });
+	const perms = interaction.guild.members.me?.permissions.has(permission);
 	if (!perms && interaction.deferred) {
 		await interaction.editReply({
-			content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: locale })
+			content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: guild?.defaultLanguage })
 		});
 		return perms;
 	} else {
 		if (!perms && !interaction.deferred)
 			await interaction.reply({
-				content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: locale })
+				content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: guild?.defaultLanguage })
 			});
 	}
 	return perms;
@@ -33,6 +32,7 @@ export async function createSettings(param: Guild | ChatInputCommandInteraction<
 		auditLogEvent: false,
 		logChannelID: null,
 		welcomeChannelID: null,
+		defaultLanguage: "en-US",
 		guildSettings: [
 			{
 				antiRaid: false,
@@ -96,10 +96,13 @@ export function formatBytes(bytes: number): string {
 
 	return `${value} ${units[exponent]}`;
 }
-
+/** * Checks if the member is blacklistable based on their roles and the guild's safe roles.
+ * @param member - The guild member to check.
+ * @param guild_db - The guild's database settings.
+ * @returns `true` if the member is blacklistable, otherwise `false`. */
 export function blacklistable(member: GuildMember, guild_db: guild) {
 	const settings = guild_db.safeRoles;
-	if (member.roles.highest.position > member.guild.members.me.roles.highest.position) {
+	if (member.roles.highest.position > member.guild.members.me!.roles.highest.position) {
 		return false;
 	}
 	if (member.roles.cache.find((role: Role) => role.id === settings.toString())) {
@@ -126,15 +129,23 @@ export function trimRole(roles: RoleMention[], limit = 10): string[] {
 	return trimmedRoles;
 }
 
+/** * Updates the channel setting in the guild settings.
+ * @param interaction - The interaction object for editing the reply.
+ * @param guildSettings - The settings of the guild.
+ * @param chan - The channel to update.
+ * @param settingKey - The key of the setting to update.
+ * @param channelId - The ID of the channel.
+ * @param successMessage - The success message to display.
+ * @param removeMessage - The removal message to display. *
+ * @param locale - The locale for translation. */
 export async function updateChannelSetting(
 	interaction: ChatInputCommandInteraction<"cached">,
-	guildSettings: any,
+	guildSettings: guild,
 	chan: GuildTextBasedChannel | null,
 	settingKey: string,
 	channelId: string | null,
 	successMessage: string,
-	removeMessage: string,
-	locale: string
+	removeMessage: string
 ) {
 	if (channelId) {
 		await guildSettings.updateOne({ [settingKey]: channelId });
@@ -142,48 +153,68 @@ export async function updateChannelSetting(
 			content: i18next.t(successMessage, {
 				channel: settingKey,
 				channel_id: chan,
-				lng: locale
+				lng: guildSettings?.defaultLanguage
 			})
 		});
 	} else {
 		await guildSettings.updateOne({ [settingKey]: null });
 		interaction.editReply({
-			content: i18next.t(removeMessage, { lng: locale })
+			content: i18next.t(removeMessage, { lng: guildSettings?.defaultLanguage })
 		});
 	}
 }
 
-export async function updateEventSetting(interaction: ChatInputCommandInteraction<"cached">, guildSettings: any, eventKey: string, enabled: boolean, locale: string) {
+/** * Updates the event setting in the guild settings.
+ *  @param interaction - The interaction object for editing the reply.
+ *  @param guildSettings - The settings of the guild.
+ *  @param eventKey - The key of the event to update.
+ *  @param enabled - Whether the event is enabled or disabled.
+ *  @param locale - The locale for translation. */
+export async function updateEventSetting(interaction: ChatInputCommandInteraction<"cached">, guildSettings: guild, eventKey: string, enabled: boolean) {
 	await guildSettings.updateOne({ [eventKey]: enabled });
 	interaction.editReply({
 		content: i18next.t(enabled ? "command.config.events.enabled" : "command.config.events.disabled", {
 			event: eventKey,
-			lng: locale
+			lng: guildSettings?.defaultLanguage
 		})
 	});
 }
 
+/** * Updates the role setting in the guild settings.
+ * @param interaction - The interaction object for editing the reply.
+ * @param guildSettings - The settings of the guild.
+ * @param role - The role to update.
+ * @param settingKey - The key of the setting to update.
+ * @param roleId - The ID of the role.
+ * @param successMessage - The success message to display.
+ * @param removeMessage - The removal message to display.
+ * @param locale - The locale for translation. */
 export async function updateRoleSetting(
 	interaction: ChatInputCommandInteraction<"cached">,
-	guildSettings: any,
+	guildSettings: guild,
 	role: Role | null,
 	settingKey: string,
 	roleId: string | null,
 	successMessage: string,
-	removeMessage: string,
-	locale: string
+	removeMessage: string
 ) {
 	await guildSettings.updateOne({ [settingKey]: roleId });
 	interaction.editReply({
 		content: i18next.t(roleId ? successMessage : removeMessage, {
 			role: settingKey,
 			role_id: role,
-			lng: locale
+			lng: guildSettings?.defaultLanguage
 		})
 	});
 }
 
-export async function updateSafeRoles(interaction: ChatInputCommandInteraction<"cached">, guildSettings: any, roleId: string, add: boolean, locale: string) {
+/** * Updates the safe roles in the guild settings.
+ * @param interaction - The interaction object for editing the reply.
+ * @param guildSettings - The settings of the guild.
+ * @param roleId - The ID of the role to add or remove.
+ * @param add - Whether to add or remove the role.
+ * @param locale - The locale for translation. */
+export async function updateSafeRoles(interaction: ChatInputCommandInteraction<"cached">, guildSettings: guild, roleId: string, add: boolean) {
 	if (add) {
 		await guildSettings.updateOne({ $addToSet: { safeRoles: roleId } });
 	} else {
@@ -192,17 +223,32 @@ export async function updateSafeRoles(interaction: ChatInputCommandInteraction<"
 	interaction.editReply({
 		content: i18next.t(add ? "command.config.events.enabled" : "command.config.events.disabled", {
 			event: "Safe Role",
-			lng: locale
+			lng: guildSettings?.defaultLanguage
 		})
 	});
 }
-import user from "#database/models/users.js";
+
+/** * Checks if the user's pet has leveled up and updates its level and experience.
+ *  @param userToCheck - The user whose pet's level is being checked.
+ *  @param interaction - The interaction object to follow up the response. */
 export async function checkLevelUp(userToCheck: InstanceType<typeof user>, interaction: InteractionParam): Promise<void> {
-	const xpToNextLevel = userToCheck.pet.level * 100;
-	if (userToCheck.pet.experience >= xpToNextLevel) {
-		userToCheck.pet.level += 1;
-		userToCheck.pet.experience = 0;
+	const xpToNextLevel = userToCheck.pet!.level * 100;
+	if (userToCheck.pet!.experience >= xpToNextLevel) {
+		userToCheck.pet!.level += 1;
+		userToCheck.pet!.experience = 0;
 		await userToCheck.save();
-		await interaction.followUp(`Congratulations! Your pet has leveled up to level ${userToCheck.pet.level}!`);
+		await interaction.followUp(`Congratulations! Your pet has leveled up to level ${userToCheck.pet!.level}!`);
 	}
+}
+/** * Checks if the audit log change is related to communication being disabled.
+ * @param change - The audit log change to check.
+ * @returns `true` if the change is related to communication being disabled, otherwise `false`. */
+export function isCommunicationDisabledUntil(change: AuditLogChange): boolean {
+	return change.key === "communication_disabled_until";
+}
+/** * Checks if the given value is undefined.
+ * @param value - The value to check.
+ * @returns `true` if the value is undefined, otherwise `false`. */
+export function isUndefined(value: unknown): boolean {
+	return value === undefined;
 }

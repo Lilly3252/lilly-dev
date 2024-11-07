@@ -1,14 +1,16 @@
+import guilds from "#database/models/guilds.js";
 import { InfoCommand } from "#slashyInformations/index.js";
 import { user } from "#utils/types/database.js";
 import { truncateEmbed } from "@yuudachi/framework";
-import { ArgsParam } from "@yuudachi/framework/types";
+import { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, Colors, GuildMember, TimestampStyles, User, time } from "discord.js";
 import i18next from "i18next";
 
-export function userInfo(args: ArgsParam<typeof InfoCommand>["user"], target: User | GuildMember, user: user, locale: string): APIEmbed {
+export async function userInfo(args: ArgsParam<typeof InfoCommand>["user"], target: User | GuildMember, user: user, interaction: InteractionParam): Promise<APIEmbed> {
+	const guild = await guilds.findOne({ guildID: interaction.guild.id });
 	const isGuildMember = target instanceof GuildMember;
 	const userBlacklisted = user?.blacklisted;
-	const spammer = isGuildMember ? target.user.flags.has("Spammer") : target.flags.has("Spammer");
+	const spammer = isGuildMember ? target.user.flags?.has("Spammer") : target.flags?.has("Spammer");
 
 	const embed: APIEmbed = {
 		title: isGuildMember ? "Member Information" : "User Information",
@@ -26,13 +28,13 @@ export function userInfo(args: ArgsParam<typeof InfoCommand>["user"], target: Us
 
 	if (isGuildMember) {
 		const guildMemberInfo: APIEmbedField = {
-			name: i18next.t("info.member.name", { lng: locale }),
+			name: i18next.t("info.member.name", { lng: guild?.defaultLanguage }),
 			value: i18next.t("info.member.value", {
 				username: target.user.username,
 				id: target.id,
 				avatar: `[link to Avatar](${target.displayAvatarURL()})`,
 				status: target.presence?.status ?? "No information",
-				lng: locale
+				lng: guild?.defaultLanguage
 			})
 		};
 		fields.push(guildMemberInfo);
@@ -55,7 +57,7 @@ export function userInfo(args: ArgsParam<typeof InfoCommand>["user"], target: Us
 				name: "Other",
 				value: i18next.t("info.member.other", {
 					created_at: time(target.user.createdAt, TimestampStyles.RelativeTime),
-					joined_at: time(target.joinedAt, TimestampStyles.RelativeTime),
+					joined_at: time(target.joinedAt!, TimestampStyles.RelativeTime),
 					pending: target.pending,
 					is_timed_out: target.communicationDisabledUntil ? time(target.communicationDisabledUntil, TimestampStyles.RelativeTime) : "false",
 					is_bot: target.user.bot
@@ -83,13 +85,13 @@ export function userInfo(args: ArgsParam<typeof InfoCommand>["user"], target: Us
 		}
 	} else {
 		const userInfo: APIEmbedField = {
-			name: i18next.t("info.user.name", { lng: locale }),
+			name: i18next.t("info.user.name", { lng: guild?.defaultLanguage }),
 			value: i18next.t("info.user.value", {
 				username: target.username,
 				id: target.id,
 				avatar: `[link to Avatar](${target.displayAvatarURL()})`,
 				time_create: time(target.createdAt, TimestampStyles.RelativeTime),
-				lng: locale
+				lng: guild?.defaultLanguage
 			})
 		};
 		fields.push(userInfo);

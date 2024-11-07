@@ -18,5 +18,7 @@ export const medicineItems: MedicineItem[] = [
 	{ itemName: "🧴 Skin Ointment", price: 14, healthBenefit: 14 },
 	{ itemName: "💊 Anti-inflammatory", price: 28, healthBenefit: 28 },
 	{ itemName: "🍶 Hydration Pack", price: 35, healthBenefit: 35 },
-	{ itemName: "🔋 Energy Boost", price: 40, healthBenefit: 40 }
+	{ itemName: "🔋 Energy Boost", price: 40, healthBenefit: 40 },
+	{ itemName: "🧴 Spa Treatment", price: 50, healthBenefit: 50 },
+	{ itemName: "🧴 Vet Visit", price: 60, healthBenefit: 60 }
 ];

@@ -1,8 +1,11 @@
+import guilds from "#database/models/guilds.js";
 import { truncateEmbed } from "@yuudachi/framework";
+import { InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, BaseGuildTextChannel, ChannelType, PermissionsBitField } from "discord.js";
 import i18next from "i18next";
 
-export function channelInfo(channel: BaseGuildTextChannel, locale: string) {
+export async function channelInfo(channel: BaseGuildTextChannel, interaction: InteractionParam) {
+	const guild = await guilds.findOne({ guildID: interaction.guild.id });
 	const info: APIEmbedField = {
 		name: `Channel`,
 		value: i18next.t("info.channel.value", {
@@ -13,7 +16,7 @@ export function channelInfo(channel: BaseGuildTextChannel, locale: string) {
 			private: channel.permissionsFor(channel.guild.id)?.has(PermissionsBitField.Flags.ViewChannel) ? "False" : "True",
 			topic: channel.topic ? channel.topic : "no topic",
 
-			lng: locale
+			lng: guild?.defaultLanguage
 		})
 	};
 
@@ -21,7 +24,7 @@ export function channelInfo(channel: BaseGuildTextChannel, locale: string) {
 		author: {
 			name: "Channel Information"
 		},
-		thumbnail: { url: channel.guild.iconURL() },
+		thumbnail: { url: channel.guild.iconURL()! },
 		fields: [info],
 		footer: {
 			text: `Type: ${ChannelType ? ChannelType[channel.type].replace(/([a-z])([A-Z])/g, "$1 $2") : "Cannot provide this information."}`

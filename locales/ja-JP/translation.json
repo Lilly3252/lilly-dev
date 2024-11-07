@@ -6,14 +6,65 @@
 					"generic": "エラーが発生しました。しばらくしてからもう一度お試しください。",
 					"no_permission": "このコマンドを使用する権限がありません。",
 					"permission_not_found": "権限 {{perm}} が見つかりません。",
-					"no_settings": "ギルド設定がまだ初期化されていません。設定を作成します！ 今回はうまくいくはずです..."
+					"no_settings": "ギルド設定がまだ初期化されていません。設定を作成します！ 今回はうまくいくはずです...",
+					"Unhandled_audit_log_event": "未処理の監査ログイベント"
 				}
 			},
 			"events": {
+				"embed": {
+					"audit": {}
+				},
 				"enabled": "✅ {{event}} が有効になりました。",
 				"disabled": "✅ {{event}} が無効になりました。",
 				"channel_set": "✅ {{channel}} が {{channel_id}} に設定されました。",
-				"channel_removed": "✅ チャンネルが削除され、`null` に設定されました。"
+				"channel_removed": "✅ チャンネルが削除され、`null` に設定されました。",
+				"defaultLanguage": "リリーのデフォルト言語は今{{language}}です！",
+				"audit_log": {
+					"guild_updated": "ギルドが更新されました",
+					"channel_created": "チャンネルが作成されました",
+					"channel_updated": "チャンネルが更新されました",
+					"channel_deleted": "チャンネルが削除されました",
+					"channel_overwrite_created": "チャンネルの上書きが作成されました",
+					"channel_overwrite_updated": "チャンネルの上書きが更新されました",
+					"channel overwrite_deleted": "チャンネルの上書きが削除されました",
+					"member_kicked": "メンバーがキックされました",
+					"members_pruned": "メンバーが整理されました",
+					"member_banned": "メンバーが禁止されました",
+					"member_unbanned": "メンバーの禁止が解除されました",
+					"member_updated": "メンバーが更新されました",
+					"member_roles_updated": "メンバーの役割が更新されました",
+					"member_moved": "メンバーが移動されました",
+					"member_disconnected": "メンバーが切断されました",
+					"bot_added": "ボットが追加されました",
+					"role_created": "役割が作成されました",
+					"role_updated": "役割が更新されました",
+					"role_deleted": "役割が削除されました",
+					"invite_created": "招待が作成されました",
+					"invite_updated": "招待が更新されました",
+					"invite_deleted": "招待が削除されました",
+					"webhook_created": "Webhookが作成されました",
+					"webhook_updated": "Webhookが更新されました",
+					"Webhook_deleted": "Webhookが削除されました",
+					"emoji_created": "絵文字が作成されました",
+					"emoji_updated": "絵文字が更新されました",
+					"emoji_deleted": "絵文字が削除されました",
+					"message_deleted": "メッセージが削除されました",
+					"bulk_messages_deleted": "一括メッセージが削除されました",
+					"message_pinned": "メッセージがピン留めされました",
+					"message_unpinned": "メッセージのピン留めが解除されました",
+					"integration_created": "インテグレーションが作成されました",
+					"integration_updated": "インテグレーションが更新されました",
+					"integration_deleted": "インテグレーションが削除されました",
+					"stage_instance_created": "ステージインスタンスが作成されました",
+					"stage_instance_updated": "ステージインスタンスが更新されました",
+					"stage_instance_deleted": "ステージインスタンスが削除されました",
+					"sticker_created": "ステッカーが作成されました",
+					"sticker_updated": "ステッカーが更新されました",
+					"sticker_deleted": "ステッカーが削除されました",
+					"scheduled_event_created": "予定されたイベントが作成されました",
+					"scheduled_event_updated": "予定されたイベントが更新されました",
+					"scheduled_event_deleted": "予定されたイベントが削除されました"
+				}
 			}
 		},
 		"mod": {
@@ -28,12 +79,12 @@
 				"not_moderatable": "指定されたユーザーはモデレートできません。"
 			},
 			"timeout": {
-				"success": "{{user}} は {{duration}} の間タイムアウトされました。",
+				"succes": "{{user}} は {{duration}} の間タイムアウトされました。",
 				"no_reason": "理由は提供されていません。",
 				"not_moderatable": "指定されたユーザーはモデレートできません。"
 			},
 			"kick": {
-				"success": "{{user}} を正常にキックしました。",
+				"succes": "{{user}} を正常にキックしました。",
 				"no_reason": "理由は提供されていません。",
 				"not_kickable": "指定されたユーザーはキックできません。"
 			},
@@ -42,14 +93,14 @@
 				"unlocked": "チャンネルのロックが解除されました。"
 			},
 			"slowmode": {
-				"success": "{{channel}} でスローモードが {{time}} 秒に設定されました。"
+				"succes": "{{channel}} でスローモードが {{time}} 秒に設定されました。"
 			},
 			"ban": {
-				"success": "{{user}} を正常にバンしました。",
+				"succes": "{{user}} を正常にバンしました。",
 				"not_bannable": "{{- user}} はバンできません。"
 			},
 			"unban": {
-				"success": "{{user}} のバンが解除されました。",
+				"succes": "{{user}} のバンが解除されました。",
 				"no_reason": "理由は提供されていません。",
 				"errors": {
 					"no_ids": "有効なユーザーIDを提供してください。",
@@ -88,7 +139,7 @@
 				"skill_learned": "あなたのペットはスキルを習得しました: {{skill}}!",
 				"item_bought": "{{itemName}}を購入しました。このアイテムはあなたのペットのインベントリに追加されました。",
 				"adopted_pet": "{{petType}}という名前のペットを採用しました: {{petName}}!",
-				"status": "ペットの名前: {{petName}}\nタイプ: {{petType}}\n空腹度: {{hunger}}\n幸福度: {{happiness}}",
+				"status": "ペットの名前: {{petName}}\nタイプ: {{petType}}\n空腹度: {{hunger}}\n幸福度: {{happines}}",
 				"battle": {
 					"win": "あなたのペット{{userPetName}}は{{opponentPetName}}との戦いに勝ちました！",
 					"lose": "あなたのペット{{userPetName}}は{{opponentPetName}}との戦いに敗れました。",
@@ -123,7 +174,7 @@
 				"used_item": "{{itemName}}を使用しました。現在の健康状態は{{health}}です。",
 				"daily_reward": "{{dailyReward}}コインの今日の報酬を受け取りました！",
 				"fed_pet": "あなたのペット{{itemName}}に餌を与えました。空腹度は{{hunger}}、健康状態は{{health}}です。",
-				"played_with_pet": "あなたのペット{{petName}}と遊びました。幸福度は{{happiness}}です。"
+				"played_with_pet": "あなたのペット{{petName}}と遊びました。幸福度は{{happines}}です。"
 			},
 			"user_note": {
 				"errors": {
@@ -137,7 +188,7 @@
 				"note_deleted": "{{target}}のメモ{{note}}が削除されました。"
 			},
 			"ping": {
-				"success": "{{response}} ボットの遅延は {{bot_latency}} ミリ秒です。APIの遅延は {{API_latency}} ミリ秒です。",
+				"succes": "{{response}} ボットの遅延は {{bot_latency}} ミリ秒です。APIの遅延は {{API_latency}} ミリ秒です。",
 				"responses": {
 					"nah": "いや..",
 					"okay": "大丈夫.. 次に進んで",
@@ -157,14 +208,14 @@
 				"bot": {
 					"name": "メンバー",
 					"system": "**❯ プラットフォーム:** {{platform}}\n**❯ 稼働時間:** {{uptime}}\n**❯ CPU:**\n\u3000 コア数: {{cores}}\n\u3000 モデル: {{model}}\n\u3000 速度: {{speed}}\n**❯ メモリ:**\n\u3000 合計: {{total_memory}}\n\u3000 使用済み: {{used_memory}}\n",
-					"info": "**❯ オーナー:** {{- owner}}\n**❯ サーバー数:** {{servers}}\n**❯ ユーザー数:** {{users}}\n**❯ チャンネル数:** {{channels}}\n**❯ 作成日:** {{- create_date}}\n**❯ Node.js:** {{node}}\n**❯ TypeScript バージョン:** {{ts}}\n**❯ Discord.js:** {{djs}}\n\u200B"
+					"info": "**❯ オーナー:** {{- owner}}\n**❯ サーバー数:** {{servers}}\n**❯ ユーザー数:** {{users}}\n**❯ チャンネル数:** {{channels}}\n**❯ 作成日:** {{- create_date}}\n**❯ Node.js:** {{node}}\n**❯ Typescript バージョン:** {{ts}}\n**❯ Discord.js:** {{djs}}\n\u200B"
 				},
 				"channel": {
-					"value": "**❯ ID:** {{id}}\n**❯ 名前:** {{name}} \n**❯ NSFW:** {{nsfw}}\n**❯ スローモード:** {{slowmode}}\n**❯ プライベートチャンネル:** {{private}}\n**❯ チャンネルトピック:** {{topic}}"
+					"value": "**❯ ID:** {{id}}\n**❯ 名前:** {{name}} \n**❯ NsFW:** {{nsfw}}\n**❯ スローモード:** {{slowmode}}\n**❯ プライベートチャンネル:** {{private}}\n**❯ チャンネルトピック:** {{topic}}"
 				},
 				"role": {
-					"other": "**❯ 位置:** {{- position}}\n**❯ 権限:** {{- permissions}}",
-					"other2": "\n\u200b\n\u200b {{- permissions}}",
+					"other": "**❯ 位置:** {{- position}}\n**❯ 権限:** {{- permisions}}",
+					"other2": "\n\u200b\n\u200b {{- permisions}}",
 					"value": "**❯ 名前:** {{- name}}\n**❯ ロールID:** {{role_id}}\n**❯ 色:** {{color}}\n**❯ 表示:** {{hoisted}}\n**❯ メンション可能:** {{mentionable}}"
 				},
 				"server": {
@@ -179,7 +230,7 @@
 					"channel_title": "チャンネル",
 					"channel_description": "**\u3000❯ ウェルカムチャンネル:** <#{{welcome_channel}}>\n **\u3000❯ モデレーションログチャンネル:** <#{{log_channel}}>\n **アンチレイド:** {{anti_raid_enabled}}\n **監査ログ:** {{audit_log_enabled}}",
 					"event_title": "イベント更新",
-					"event_description": "**\u3000❯ ボット:** {{bot}}\n **\u3000❯ ロール:** {{role}}\n **\u3000❯ ギルド:** {{guild}}\n **\u3000❯ 絵文字:** {{emoji}}\n **\u3000❯ スレッド:** {{thread}}\n **\u3000❯ メッセージ:** {{message}}\n **\u3000❯ ウェブフック:** {{webhooks}}\n **\u3000❯ ステージイベント:** {{stage}}\n ",
+					"event_description": "**\u3000❯ ボット:** {{bot}}\n **\u3000❯ ロール:** {{role}}\n **\u3000❯ ギルド:** {{guild}}\n **\u3000❯ 絵文字:** {{emoji}}\n **\u3000❯ スレッド:** {{thread}}\n **\u3000❯ メッセージ:** {{mesage}}\n **\u3000❯ ウェブフック:** {{webhooks}}\n **\u3000❯ ステージイベント:** {{stage}}\n ",
 					"event_description2": "**\u3000❯ ステッカー:** {{sticker}}\n **\u3000❯ チャンネル:** {{channel}}\n **\u3000❯ 招待:** {{invitations}}\n **\u3000❯ 統合:** {{integration}}\n **\u3000❯ ギルドメンバー:** {{guild_member}}\n **\u3000❯ 自動モデレーション:** {{auto_moderation}}\n **\u3000❯ 予定されたイベント:** {{scheduled}}\n **\u3000❯ コマンドの権限:** {{cmd_perm}}"
 				},
 				"": {},

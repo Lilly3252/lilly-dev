@@ -7,6 +7,7 @@ const guildSchema = new Schema<guild>({
 	auditLogEvent: { type: Boolean, default: false },
 	logChannelID: { type: String, default: null },
 	welcomeChannelID: { type: String, default: null },
+	defaultLanguage: { type: String, default: "en-US" },
 	guildSettings: [
 		{
 			antiRaid: { type: Boolean, default: false },

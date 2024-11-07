@@ -1,10 +1,12 @@
+import guilds from "#database/models/guilds.js";
 import { InfoCommand } from "#slashyInformations/index.js";
 import { truncateEmbed } from "@yuudachi/framework";
-import { ArgsParam } from "@yuudachi/framework/types";
+import { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, Role } from "discord.js";
 import i18next from "i18next";
 
-export function roleInfo(args: ArgsParam<typeof InfoCommand>["role"], role: Role, locale: string): APIEmbed {
+export async function roleInfo(args: ArgsParam<typeof InfoCommand>["role"], role: Role, interaction: InteractionParam): Promise<APIEmbed> {
+	const guild = await guilds.findOne({ guildID: interaction.guild.id });
 	const info: APIEmbedField = {
 		name: "Role",
 		value: i18next.t("info.role.value", {
@@ -13,13 +15,13 @@ export function roleInfo(args: ArgsParam<typeof InfoCommand>["role"], role: Role
 			color: role.hexColor,
 			hoisted: role.hoist,
 			mentionable: role.mentionable,
-			lng: locale
+			lng: guild?.defaultLanguage
 		})
 	};
 
 	const embed: APIEmbed = {
 		author: { name: "Role Information" },
-		thumbnail: { url: role.guild.iconURL() },
+		thumbnail: { url: role.guild.iconURL()! },
 		color: role.color,
 		fields: [info]
 	};
@@ -33,7 +35,7 @@ export function roleInfo(args: ArgsParam<typeof InfoCommand>["role"], role: Role
 					.toArray()
 					.slice(0, 20)
 					.map((key) => `\n\u3000 ${key}`.replace(/([a-z])([A-Z])/g, "$1 $2")),
-				lng: locale
+				lng: guild?.defaultLanguage
 			}),
 			inline: true
 		};
@@ -45,12 +47,12 @@ export function roleInfo(args: ArgsParam<typeof InfoCommand>["role"], role: Role
 					.toArray()
 					.slice(20)
 					.map((key) => `\n\u3000 ${key}`.replace(/([a-z])([A-Z])/g, "$1 $2")),
-				lng: locale
+				lng: guild?.defaultLanguage
 			}),
 			inline: true
 		};
 
-		embed.fields.push(otherInfo, otherInfo2);
+		embed.fields!.push(otherInfo, otherInfo2);
 	}
 
 	return truncateEmbed(embed);

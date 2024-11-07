@@ -32,7 +32,7 @@ export default class implements Event {
 					`Executing ${interaction.isAutocomplete() ? "autocomplete" : "chatInput command"} ${interaction.commandName}`
 				);
 
-				await command.chatInput(interaction, transformApplicationInteraction(interaction.options.data), effectiveLocale);
+				await command?.chatInput(interaction, transformApplicationInteraction(interaction.options.data), effectiveLocale);
 			}
 			if (interaction.isModalSubmit()) {
 				switch (interaction.customId) {
@@ -52,7 +52,7 @@ export default class implements Event {
 					if (command) {
 						await command.autocomplete(interaction, transformApplicationInteraction(interaction.options.data), effectiveLocale);
 					}
-				} catch (err: unknown) {
+				} catch {
 					return interaction.respond([]);
 				}
 			}
