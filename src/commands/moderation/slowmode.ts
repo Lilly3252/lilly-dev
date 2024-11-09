@@ -1,19 +1,18 @@
 import type { SlowmodeCommand } from "#slashyInformations/index.js";
-import { permission } from "#utils/index.js";
+import { getLanguage, permission } from "#utils/index.js";
 import i18next from "i18next";
 
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
-import guilds from "#database/models/guilds.js";
 
 export default class extends Command<typeof SlowmodeCommand> {
 	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof SlowmodeCommand>): Promise<void> {
-		const guild = await guilds.findOne({ guildID: interaction.guildId });
 		const channel = args.channel ?? interaction.channel;
-
+		const defaultLanguage = (args.hide ?? true) ? undefined : "en-US";
+		const locale = getLanguage(interaction, defaultLanguage);
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
 
-		if (!(await permission(interaction, "ManageChannels"))) {
+		if (!(await permission(interaction, "ManageChannels", locale))) {
 			return;
 		}
 
@@ -24,13 +23,13 @@ export default class extends Command<typeof SlowmodeCommand> {
 					content: i18next.t("command.mod.slowmode.success", {
 						channel: `${channel}`,
 						time: `${args.time}`,
-						lng: guild?.defaultLanguage
+						lng: locale
 					})
 				});
 			} catch (error) {
 				console.error("Failed to set slowmode:", error);
 				await interaction.editReply({
-					content: i18next.t("command.common.errors.generic", { lng: guild?.defaultLanguage })
+					content: i18next.t("command.common.errors.generic", { lng: locale })
 				});
 			}
 		}

@@ -1,4 +1,4 @@
-import { PetCommand } from "#slashyInformations/index.js";
+/*import { PetCommand } from "#slashyInformations/index.js";
 
 import guilds from "#database/models/guilds.js";
 import user from "#database/models/users.js";
@@ -42,3 +42,4 @@ export async function buyToy(interaction: InteractionParam, args: ArgsParam<type
 	await database.save();
 	await interaction.reply(i18next.t("command.utility.pet.item_bought", { itemName: toyitemNameToBuy, lng: guild?.defaultLanguage }));
 }
+*/

@@ -1,14 +1,12 @@
-import guilds from "#database/models/guilds.js";
 import { truncateEmbed } from "@yuudachi/framework";
 import { InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, BaseGuildTextChannel, ChannelType, PermissionsBitField } from "discord.js";
 import i18next from "i18next";
 
-export async function channelInfo(channel: BaseGuildTextChannel, interaction: InteractionParam) {
-	const guild = await guilds.findOne({ guildID: interaction.guild.id });
+export async function channelInfo(channel: BaseGuildTextChannel, interaction: InteractionParam, language: string | undefined) {
 	const info: APIEmbedField = {
 		name: `Channel`,
-		value: i18next.t("info.channel.value", {
+		value: i18next.t("command.utility.info.channel.value", {
 			id: channel.id,
 			name: channel.name,
 			nsfw: channel.nsfw,
@@ -16,7 +14,7 @@ export async function channelInfo(channel: BaseGuildTextChannel, interaction: In
 			private: channel.permissionsFor(channel.guild.id)?.has(PermissionsBitField.Flags.ViewChannel) ? "False" : "True",
 			topic: channel.topic ? channel.topic : "no topic",
 
-			lng: guild?.defaultLanguage
+			lng: language
 		})
 	};
 

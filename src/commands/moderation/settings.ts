@@ -2,7 +2,7 @@ import guilds from "#database/models/guilds.js";
 import type { SettingCommand } from "#slashyInformations/index.js";
 import { audit_log, channels, restriction_role, setevent, show } from "#subcommands/index.js";
 import { languages } from "#subcommands/settings/language.js";
-import { createSettings, permission } from "#utils/index.js";
+import { createSettings, getLanguage, permission } from "#utils/index.js";
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import i18next from "i18next";
@@ -11,15 +11,15 @@ export default class extends Command<typeof SettingCommand> {
 	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof SettingCommand>): Promise<void> {
 		const subCommands = interaction.options.getSubcommand();
 		const guildSettings = await guilds.findOne({ guildID: interaction.guildId });
-
-		if (!(await permission(interaction, "ManageGuild"))) {
+		const locale = getLanguage(interaction, "en-US");
+		if (!(await permission(interaction, "ManageGuild", locale))) {
 			return;
 		}
 
 		if (!guildSettings) {
 			await createSettings(interaction);
 			await interaction.reply({
-				content: i18next.t("command.config.common.errors.no_settings", { lng: "en-US" }),
+				content: i18next.t("command.config.common.errors.no_settings", { lng: locale }),
 				ephemeral: true
 			});
 			return;

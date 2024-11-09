@@ -16,10 +16,8 @@ export async function aquest(interaction: InteractionParam<CommandMethod.Autocom
 	const incompleteQuest = database?.quests?.find((q) => !q.completed);
 	if (incompleteQuest) {
 		const questinventory = database?.quests;
-		console.log("questinventory:" + questinventory);
 		await interaction.respond(questinventory!.map((t) => ({ name: t.questName.toString(), value: t.questName.toString() })));
 	} else {
-		console.log(JSON.stringify(quests, null, 2));
-		await interaction.respond(quests.map((t) => ({ name: t.questName.toString(), value: t.questName.toString() })));
+		await interaction.respond((await quests(interaction)).map((t) => ({ name: t.questName.toString(), value: t.questName.toString() })));
 	}
 }

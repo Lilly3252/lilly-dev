@@ -1,16 +1,17 @@
 import { BlacklistCommand } from "#slashyInformations/index.js";
 import { addUserBlacklist, permission } from "#utils/index.js";
 
+import guilds from "#database/models/guilds.js";
 import user from "#database/models/users.js";
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import i18next from "i18next";
-import guilds from "#database/models/guilds.js";
 
 export default class extends Command<typeof BlacklistCommand> {
 	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof BlacklistCommand>): Promise<void> {
+		const defaultLanguage = (args.hide ?? true) ? undefined : "en-US";
 		const guild = await guilds.findOne({ guildID: interaction.guildId });
-		if (!(await permission(interaction, "ManageGuild"))) {
+		if (!(await permission(interaction, "ManageGuild", defaultLanguage))) {
 			return;
 		}
 

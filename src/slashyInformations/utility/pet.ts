@@ -55,6 +55,17 @@ export const PetCommand = {
 						{ name: "Hedgehog", value: "🦔 Hedgehog" },
 						{ name: "Chinchilla", value: "🐹 Chinchilla" }
 					]
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
 				}
 			]
 		},
@@ -69,6 +80,17 @@ export const PetCommand = {
 					description: "The name of the item",
 					required: true,
 					autocomplete: true
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
 				}
 			]
 		},
@@ -82,13 +104,37 @@ export const PetCommand = {
 					name: "itemname",
 					description: "The name of the item",
 					autocomplete: true
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
 				}
 			]
 		},
 		{
 			type: ApplicationCommandOptionType.Subcommand,
 			name: "status",
-			description: "Check the status of your pet"
+			description: "Check the status of your pet",
+			options: [
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
+				}
+			]
 		},
 		{
 			type: ApplicationCommandOptionType.Subcommand,
@@ -101,6 +147,17 @@ export const PetCommand = {
 					description: "The name of the item used",
 					required: false,
 					autocomplete: true
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
 				}
 			]
 		},
@@ -126,6 +183,17 @@ export const PetCommand = {
 							name: "quantity",
 							description: "The quantity of the item",
 							required: true
+						},
+						{
+							type: ApplicationCommandOptionType.Boolean,
+							name: "hide",
+							name_localizations: {
+								fr: "masquer"
+							},
+							description: "Hides the output",
+							description_localizations: {
+								fr: "Masque(cacher) le résultat"
+							}
 						}
 					]
 				},
@@ -146,6 +214,17 @@ export const PetCommand = {
 							name: "quantity",
 							description: "The quantity of the item",
 							required: true
+						},
+						{
+							type: ApplicationCommandOptionType.Boolean,
+							name: "hide",
+							name_localizations: {
+								fr: "masquer"
+							},
+							description: "Hides the output",
+							description_localizations: {
+								fr: "Masque(cacher) le résultat"
+							}
 						}
 					]
 				},
@@ -166,6 +245,17 @@ export const PetCommand = {
 							name: "quantity",
 							description: "The quantity of the item",
 							required: true
+						},
+						{
+							type: ApplicationCommandOptionType.Boolean,
+							name: "hide",
+							name_localizations: {
+								fr: "masquer"
+							},
+							description: "Hides the output",
+							description_localizations: {
+								fr: "Masque(cacher) le résultat"
+							}
 						}
 					]
 				}
@@ -181,6 +271,17 @@ export const PetCommand = {
 					name: "skill",
 					description: "The skill to train your pet",
 					required: true
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
 				}
 			]
 		},
@@ -194,6 +295,17 @@ export const PetCommand = {
 					name: "opponent",
 					description: "The ID of the opponent",
 					required: true
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
 				}
 			]
 		},
@@ -214,13 +326,37 @@ export const PetCommand = {
 					description: "The name of the quest",
 					required: true,
 					autocomplete: true
+				},
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
 				}
 			]
 		},
 		{
 			type: ApplicationCommandOptionType.Subcommand,
 			name: "daily",
-			description: "Get 50 coins! (available each 24h)"
+			description: "Get 50 coins! (available each 24h)",
+			options: [
+				{
+					type: ApplicationCommandOptionType.Boolean,
+					name: "hide",
+					name_localizations: {
+						fr: "masquer"
+					},
+					description: "Hides the output",
+					description_localizations: {
+						fr: "Masque(cacher) le résultat"
+					}
+				}
+			]
 		}
 	],
 	default_member_permissions: "0"

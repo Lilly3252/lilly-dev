@@ -1,20 +1,20 @@
-import guilds from "#database/models/guilds.js";
 import { RestrictCommand } from "#slashyInformations/index.js";
 import { truncateEmbed } from "@yuudachi/framework";
 import { ArgsParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, ChatInputCommandInteraction } from "discord.js";
 import i18next from "i18next";
 
-export async function moderationEmbed(interaction: ChatInputCommandInteraction, args: ArgsParam<typeof RestrictCommand>) {
-	const guild = await guilds.findOne({ guildID: interaction.guild?.id });
+export async function moderationEmbed(interaction: ChatInputCommandInteraction, args: ArgsParam<typeof RestrictCommand>, language: string | undefined) {
 	const descriptions: APIEmbedField = {
 		name: i18next.t("mod.embed.info.name", {
 			name: args.target.member!.displayName,
-			id: args.target.member!.id
+			id: args.target.member!.id,
+			lng: language
 		}),
 		value: i18next.t("mod.embed.info.value", {
 			action: args.restriction,
-			reason: args.reason
+			reason: args.reason,
+			lng: language
 		})
 	};
 
@@ -24,7 +24,7 @@ export async function moderationEmbed(interaction: ChatInputCommandInteraction, 
 		},
 		fields: [descriptions],
 		footer: {
-			text: i18next.t("")
+			text: i18next.t("", { lng: language })
 		}
 	};
 

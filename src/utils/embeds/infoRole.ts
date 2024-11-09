@@ -1,21 +1,19 @@
-import guilds from "#database/models/guilds.js";
 import { InfoCommand } from "#slashyInformations/index.js";
 import { truncateEmbed } from "@yuudachi/framework";
 import { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import { APIEmbed, APIEmbedField, Role } from "discord.js";
 import i18next from "i18next";
 
-export async function roleInfo(args: ArgsParam<typeof InfoCommand>["role"], role: Role, interaction: InteractionParam): Promise<APIEmbed> {
-	const guild = await guilds.findOne({ guildID: interaction.guild.id });
+export async function roleInfo(args: ArgsParam<typeof InfoCommand>["role"], role: Role, interaction: InteractionParam, language: string | undefined): Promise<APIEmbed> {
 	const info: APIEmbedField = {
 		name: "Role",
-		value: i18next.t("info.role.value", {
+		value: i18next.t("command.utility.info.role.value", {
 			name: `${role}`,
 			role_id: role.id,
 			color: role.hexColor,
 			hoisted: role.hoist,
 			mentionable: role.mentionable,
-			lng: guild?.defaultLanguage
+			lng: language
 		})
 	};
 
@@ -29,25 +27,25 @@ export async function roleInfo(args: ArgsParam<typeof InfoCommand>["role"], role
 	if (args.verbose) {
 		const otherInfo: APIEmbedField = {
 			name: "Other Information",
-			value: i18next.t("info.role.other", {
+			value: i18next.t("command.utility.info.role.other", {
 				position: role.position,
 				permissions: role.permissions
 					.toArray()
 					.slice(0, 20)
 					.map((key) => `\n\u3000 ${key}`.replace(/([a-z])([A-Z])/g, "$1 $2")),
-				lng: guild?.defaultLanguage
+				lng: language
 			}),
 			inline: true
 		};
 
 		const otherInfo2: APIEmbedField = {
 			name: `\u200b`,
-			value: i18next.t("info.role.other2", {
+			value: i18next.t("command.utility.info.role.other2", {
 				permissions: role.permissions
 					.toArray()
 					.slice(20)
 					.map((key) => `\n\u3000 ${key}`.replace(/([a-z])([A-Z])/g, "$1 $2")),
-				lng: guild?.defaultLanguage
+				lng: language
 			}),
 			inline: true
 		};

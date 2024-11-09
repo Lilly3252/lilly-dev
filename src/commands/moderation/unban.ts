@@ -1,6 +1,5 @@
-import guilds from "#database/models/guilds.js";
 import { UnbanCommand } from "#slashyInformations/index.js";
-import { permission } from "#utils/index.js";
+import { getLanguage, permission } from "#utils/index.js";
 
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
@@ -8,22 +7,22 @@ import i18next from "i18next";
 
 export default class extends Command<typeof UnbanCommand> {
 	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof UnbanCommand>): Promise<void> {
-		const guild = await guilds.findOne({ guildID: interaction.guildId });
 		await interaction.deferReply({ ephemeral: args.hide ?? true });
-
-		if (!(await permission(interaction, "BanMembers"))) {
+		const defaultLanguage = (args.hide ?? true) ? undefined : "en-US";
+		const locale = getLanguage(interaction, defaultLanguage);
+		if (!(await permission(interaction, "BanMembers", locale))) {
 			await interaction.editReply({
-				content: i18next.t("command.common.errors.no_permission", { lng: guild?.defaultLanguage })
+				content: i18next.t("command.common.errors.no_permission", { lng: locale })
 			});
 			return;
 		}
 
 		const id = args.id ?? interaction.options.getString("id");
-		const reason = args.reason ?? i18next.t("command.mod.unban.no_reason", { lng: guild?.defaultLanguage });
+		const reason = args.reason ?? i18next.t("command.mod.unban.no_reason", { lng: locale });
 
 		if (!id || isNaN(Number(id))) {
 			await interaction.editReply({
-				content: i18next.t("command.mod.unban.errors.no_ids", { lng: guild?.defaultLanguage })
+				content: i18next.t("command.mod.unban.errors.no_ids", { lng: locale })
 			});
 			return;
 		}
@@ -34,19 +33,19 @@ export default class extends Command<typeof UnbanCommand> {
 
 			if (!bannedUser) {
 				await interaction.editReply({
-					content: i18next.t("command.mod.unban.errors.no_ban", { user: id, lng: guild?.defaultLanguage })
+					content: i18next.t("command.mod.unban.errors.no_ban", { user: id, lng: locale })
 				});
 				return;
 			}
 
 			await interaction.guild.members.unban(bannedUser.user, reason);
 			await interaction.editReply({
-				content: i18next.t("command.mod.unban.success", { user: id, lng: guild?.defaultLanguage })
+				content: i18next.t("command.mod.unban.success", { user: id, lng: locale })
 			});
 		} catch (error) {
 			console.error("Failed to unban member:", error);
 			await interaction.editReply({
-				content: i18next.t("command.common.errors.generic", { lng: guild?.defaultLanguage })
+				content: i18next.t("command.common.errors.generic", { lng: locale })
 			});
 		}
 	}

@@ -1,4 +1,3 @@
-import guilds from "#database/models/guilds.js";
 import { InfoCommand } from "#slashyInformations/index.js";
 import { trimRole } from "#utils/index.js";
 import { truncateEmbed } from "@yuudachi/framework";
@@ -13,12 +12,12 @@ export async function serverInfo(
 	owner: GuildMember,
 	members: Collection<string, GuildMember>,
 	emojis: Collection<string, GuildEmoji>,
-	channels: Collection<string, Channel>
+	channels: Collection<string, Channel>,
+	language: string | undefined
 ): Promise<APIEmbed> {
-	const guild = await guilds.findOne({ guildID: interaction.guild.id });
 	const generalInfo: APIEmbedField = {
 		name: "General",
-		value: i18next.t("info.server.info", {
+		value: i18next.t("command.utility.info.server.info", {
 			name: interaction.guild.name,
 			id: interaction.guild.id,
 			owner: `${owner.user.tag} (${owner.id})`,
@@ -26,7 +25,7 @@ export async function serverInfo(
 			explicit_filter: GuildExplicitContentFilter[interaction.guild.explicitContentFilter].replace(/([a-z])([A-Z])/g, "$1 $2"),
 			verification_level: GuildVerificationLevel[interaction.guild.verificationLevel],
 			created_at: time(interaction.guild.createdAt, TimestampStyles.RelativeTime),
-			lng: guild?.defaultLanguage
+			lng: language
 		})
 	};
 
@@ -39,7 +38,7 @@ export async function serverInfo(
 	if (args.server.verbose) {
 		const statistics: APIEmbedField = {
 			name: "Statistics",
-			value: i18next.t("info.server.stats", {
+			value: i18next.t("command.utility.info.server.stats", {
 				role_count: roles.length,
 				emoji_count: emojis.size,
 				regular_emoji: emojis.filter((emoji) => !emoji.animated).size,
@@ -51,19 +50,19 @@ export async function serverInfo(
 				voice_chan: channels.filter((channel) => channel.type === ChannelType.GuildVoice).size,
 				stage_chan: channels.filter((channel) => channel.type === ChannelType.GuildStageVoice).size,
 				boost_count: interaction.guild.premiumSubscriptionCount || "0",
-				lng: guild?.defaultLanguage
+				lng: language
 			})
 		};
 
 		const presence: APIEmbedField = {
 			name: "Presence",
-			value: i18next.t("info.server.presence", {
+			value: i18next.t("command.utility.info.server.presence", {
 				online: members.filter((member) => member.presence?.status === "online").size,
 				idle: members.filter((member) => member.presence?.status === "idle").size,
 				dnd: members.filter((member) => member.presence?.status === "dnd").size,
 				offline: members.filter((member) => member.presence?.status === "offline").size,
 				no_presence: members.filter((member) => !member.presence).size,
-				lng: guild?.defaultLanguage
+				lng: language
 			})
 		};
 

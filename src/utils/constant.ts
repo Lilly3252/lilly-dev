@@ -5,8 +5,6 @@ export const MAX_SEARCH_MEMBERS = 1000;
 export const MAX_GUILD_BAN_SEARCH = 1000;
 export const MAX_GUILD_PRUNE_COUNT = 30;
 
-export const language = ["en-US", "fr-FR", "ja-JP"];
-
 export enum LillyColors {
 	// Warnings
 	DarkerRed = 0x763053,

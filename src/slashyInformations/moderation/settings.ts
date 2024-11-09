@@ -54,11 +54,11 @@ export const SettingCommand = {
 						},
 						{
 							name: "French",
-							value: "fr-FR"
+							value: "fr"
 						},
 						{
 							name: "Japanese",
-							value: "ja-JP"
+							value: "ja"
 						}
 					]
 				},

@@ -1,23 +1,23 @@
 import guilds from "#database/models/guilds.js";
 import { default as user, default as users } from "#database/models/users.js";
 import { InteractionParam } from "@yuudachi/framework/types";
-import { AuditLogChange, ChatInputCommandInteraction, Guild, GuildMember, GuildTextBasedChannel, PermissionResolvable, Role, RoleMention } from "discord.js";
+import { AuditLogChange, ChatInputCommandInteraction, Guild, GuildMember, GuildTextBasedChannel, Interaction, PermissionResolvable, Role, RoleMention } from "discord.js";
 import i18next from "i18next";
 import { guild } from "./types/database.js";
 import { EmojifyOptions } from "./types/functiontypes.js";
 
-export async function permission(interaction: InteractionParam, permission: PermissionResolvable) {
-	const guild = await guilds.findOne({ guildID: interaction.guildId });
+export async function permission(interaction: InteractionParam, permission: PermissionResolvable, defaultLanguage: string | undefined) {
+	const language = defaultLanguage;
 	const perms = interaction.guild.members.me?.permissions.has(permission);
 	if (!perms && interaction.deferred) {
 		await interaction.editReply({
-			content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: guild?.defaultLanguage })
+			content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: getLanguage(interaction, language) })
 		});
 		return perms;
 	} else {
 		if (!perms && !interaction.deferred)
 			await interaction.reply({
-				content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: guild?.defaultLanguage })
+				content: i18next.t("command.common.errors.permission_not_found", { perm: `${permission}`, lng: getLanguage(interaction, language) })
 			});
 	}
 	return perms;
@@ -32,7 +32,6 @@ export async function createSettings(param: Guild | ChatInputCommandInteraction<
 		auditLogEvent: false,
 		logChannelID: null,
 		welcomeChannelID: null,
-		defaultLanguage: "en-US",
 		guildSettings: [
 			{
 				antiRaid: false,
@@ -145,21 +144,23 @@ export async function updateChannelSetting(
 	settingKey: string,
 	channelId: string | null,
 	successMessage: string,
-	removeMessage: string
+	removeMessage: string,
+	defaultLanguage: string | undefined
 ) {
+	const language = defaultLanguage;
 	if (channelId) {
 		await guildSettings.updateOne({ [settingKey]: channelId });
 		interaction.editReply({
 			content: i18next.t(successMessage, {
 				channel: settingKey,
 				channel_id: chan,
-				lng: guildSettings?.defaultLanguage
+				lng: getLanguage(interaction, language)
 			})
 		});
 	} else {
 		await guildSettings.updateOne({ [settingKey]: null });
 		interaction.editReply({
-			content: i18next.t(removeMessage, { lng: guildSettings?.defaultLanguage })
+			content: i18next.t(removeMessage, { lng: getLanguage(interaction, language) })
 		});
 	}
 }
@@ -170,12 +171,13 @@ export async function updateChannelSetting(
  *  @param eventKey - The key of the event to update.
  *  @param enabled - Whether the event is enabled or disabled.
  *  @param locale - The locale for translation. */
-export async function updateEventSetting(interaction: ChatInputCommandInteraction<"cached">, guildSettings: guild, eventKey: string, enabled: boolean) {
+export async function updateEventSetting(interaction: ChatInputCommandInteraction<"cached">, guildSettings: guild, eventKey: string, enabled: boolean, defaultLanguage: string | undefined) {
+	const language = defaultLanguage;
 	await guildSettings.updateOne({ [eventKey]: enabled });
 	interaction.editReply({
 		content: i18next.t(enabled ? "command.config.events.enabled" : "command.config.events.disabled", {
 			event: eventKey,
-			lng: guildSettings?.defaultLanguage
+			lng: getLanguage(interaction, language)
 		})
 	});
 }
@@ -196,25 +198,41 @@ export async function updateRoleSetting(
 	settingKey: string,
 	roleId: string | null,
 	successMessage: string,
-	removeMessage: string
+	removeMessage: string,
+	defaultLanguage: string | undefined
 ) {
+	const language = defaultLanguage;
 	await guildSettings.updateOne({ [settingKey]: roleId });
 	interaction.editReply({
 		content: i18next.t(roleId ? successMessage : removeMessage, {
 			role: settingKey,
 			role_id: role,
-			lng: guildSettings?.defaultLanguage
+			lng: getLanguage(interaction, language)
 		})
 	});
 }
 
+/** * Determines the language to use based on the interaction's locale and a default language.
+ * If the default language is undefined, it returns "en-US" or the interaction's locale if it is supported.
+ * @param interaction - The interaction object containing locale information.
+ * @param defaultLanguage - The default language to use if it is defined.
+ * @returns The language to use for the interaction. */
+export function getLanguage(interaction: Interaction, defaultLanguage: string | undefined) {
+	if (isUndefined(defaultLanguage)) {
+		const supportedLanguages = ["en-US", "fr", "ja"];
+		return supportedLanguages.includes(interaction.locale) ? interaction.locale : "en-US";
+	} else {
+		return "en-US";
+	}
+}
 /** * Updates the safe roles in the guild settings.
  * @param interaction - The interaction object for editing the reply.
  * @param guildSettings - The settings of the guild.
  * @param roleId - The ID of the role to add or remove.
  * @param add - Whether to add or remove the role.
  * @param locale - The locale for translation. */
-export async function updateSafeRoles(interaction: ChatInputCommandInteraction<"cached">, guildSettings: guild, roleId: string, add: boolean) {
+export async function updateSafeRoles(interaction: ChatInputCommandInteraction<"cached">, guildSettings: guild, roleId: string, add: boolean, defaultLanguage: string | undefined) {
+	const language = defaultLanguage;
 	if (add) {
 		await guildSettings.updateOne({ $addToSet: { safeRoles: roleId } });
 	} else {
@@ -223,7 +241,7 @@ export async function updateSafeRoles(interaction: ChatInputCommandInteraction<"
 	interaction.editReply({
 		content: i18next.t(add ? "command.config.events.enabled" : "command.config.events.disabled", {
 			event: "Safe Role",
-			lng: guildSettings?.defaultLanguage
+			lng: getLanguage(interaction, language)
 		})
 	});
 }
