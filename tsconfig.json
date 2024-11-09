@@ -8,11 +8,13 @@
 		"rootDir": "src",
 		"outDir": "dist",
 		"baseUrl": "./",
+		"strict": true,
 		"paths": {
 			"#utils/*": ["./src/utils/*"],
 			"#slashyInformations/*": ["./src/slashyInformations/*"],
 			"#types/*": ["src/utils/types/*"],
-			"#database/*": ["./src/database/*"]
+			"#database/*": ["./src/database/*"],
+			"#subcommands/*": ["./src/subcommands/*"]
 		},
 		"skipLibCheck": true
 	},
