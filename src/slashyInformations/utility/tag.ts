@@ -3,22 +3,26 @@ import { ApplicationCommandOptionType } from "discord-api-types/v10";
 export const TagCommand = {
 	name: "tag",
 	name_localizations: {
-		fr: "tag"
+		fr: "tag",
+		ja: "タグ"
 	},
-	description: "get a tag",
+	description: "Get a tag",
 	description_localizations: {
-		fr: "obtenez un tag"
+		fr: "Obtenez un tag",
+		ja: "タグを取得する"
 	},
 	options: [
 		{
 			type: ApplicationCommandOptionType.String,
 			name: "query",
 			name_localizations: {
-				fr: "tag"
+				fr: "tag",
+				ja: "タグ"
 			},
-			description: "tag",
+			description: "Tag",
 			description_localizations: {
-				fr: "tag"
+				fr: "Tag",
+				ja: "タグ"
 			},
 			autocomplete: true,
 			required: true

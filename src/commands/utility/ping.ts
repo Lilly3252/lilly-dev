@@ -13,6 +13,7 @@ export default class extends Command<typeof PingCommand> {
 		});
 		const defaultLanguage = (args.hide ?? true) ? undefined : "en-US";
 		const locale = getLanguage(interaction, defaultLanguage);
+
 		const choices = [
 			i18next.t("command.utility.ping.responses.nah", { lng: locale }), // if Ephemeral it says the message in their locale , If not eph.. show in english
 			i18next.t("command.utility.ping.responses.okay", { lng: locale }),

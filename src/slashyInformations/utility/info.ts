@@ -2,9 +2,10 @@ import { ApplicationCommandOptionType } from "discord-api-types/v10";
 
 export const InfoCommand = {
 	name: "info",
-	description: "informations.",
+	description: "Informations.",
 	description_localizations: {
-		fr: "informations."
+		fr: "Informations.",
+		ja: "情報。"
 	},
 	options: [
 		{
@@ -12,18 +13,21 @@ export const InfoCommand = {
 			name: "user",
 			description: "Show user info.",
 			description_localizations: {
-				fr: "Montre les info de l'utilisateur choisit."
+				fr: "Montre les infos de l'utilisateur choisi.",
+				ja: "ユーザー情報を表示。"
 			},
 			options: [
 				{
 					type: ApplicationCommandOptionType.User,
 					name: "target",
 					name_localizations: {
-						fr: "target"
+						fr: "cible",
+						ja: "ターゲット"
 					},
-					description: "get the member you want information from.",
+					description: "Get the member you want information from.",
 					description_localizations: {
-						fr: "Afficher le membre don vous voulez l'information."
+						fr: "Afficher le membre dont vous voulez les informations.",
+						ja: "情報を取得したいメンバー。"
 					},
 					required: true
 				},
@@ -31,22 +35,26 @@ export const InfoCommand = {
 					type: ApplicationCommandOptionType.Boolean,
 					name: "verbose",
 					name_localizations: {
-						fr: "complet"
+						fr: "complet",
+						ja: "詳細"
 					},
-					description: "show complete information",
+					description: "Show complete information",
 					description_localizations: {
-						fr: "montre toutes les informations"
+						fr: "Montre toutes les informations",
+						ja: "完全な情報を表示する"
 					}
 				},
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
 					name_localizations: {
-						fr: "masquer"
+						fr: "masquer",
+						ja: "非表示"
 					},
 					description: "Hides the output",
 					description_localizations: {
-						fr: "Masque(cacher) le résultat"
+						fr: "Masque le résultat",
+						ja: "出力を非表示にする"
 					}
 				}
 			]
@@ -56,18 +64,21 @@ export const InfoCommand = {
 			name: "channel",
 			description: "Show channel info.",
 			description_localizations: {
-				fr: "Montre les info du channel choisit."
+				fr: "Montre les infos du channel choisi.",
+				ja: "チャンネル情報を表示。"
 			},
 			options: [
 				{
 					type: ApplicationCommandOptionType.Channel,
 					name: "channel",
 					name_localizations: {
-						fr: "channel"
+						fr: "channel",
+						ja: "チャンネル"
 					},
-					description: "choose the channel",
+					description: "Choose the channel",
 					description_localizations: {
-						fr: "selectionner le channel"
+						fr: "Sélectionner le channel",
+						ja: "チャンネルを選択する"
 					},
 					required: true
 				},
@@ -75,22 +86,26 @@ export const InfoCommand = {
 					type: ApplicationCommandOptionType.Boolean,
 					name: "verbose",
 					name_localizations: {
-						fr: "complet"
+						fr: "complet",
+						ja: "詳細"
 					},
-					description: "show complete information",
+					description: "Show complete information",
 					description_localizations: {
-						fr: "montre toutes les informations"
+						fr: "Montre toutes les informations",
+						ja: "完全な情報を表示する"
 					}
 				},
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
 					name_localizations: {
-						fr: "masquer"
+						fr: "masquer",
+						ja: "非表示"
 					},
 					description: "Hides the output",
 					description_localizations: {
-						fr: "Masque(cacher) le résultat"
+						fr: "Masque le résultat",
+						ja: "出力を非表示にする"
 					}
 				}
 			]
@@ -100,18 +115,21 @@ export const InfoCommand = {
 			name: "role",
 			description: "Information about a role in the guild",
 			description_localizations: {
-				fr: "Information a propos dun role dans la guilde"
+				fr: "Informations à propos d'un rôle dans la guilde",
+				ja: "ギルド内の役割に関する情報"
 			},
 			options: [
 				{
 					type: ApplicationCommandOptionType.Role,
 					name: "role",
 					name_localizations: {
-						fr: "role"
+						fr: "role",
+						ja: "役割"
 					},
 					description: "Select a role.",
 					description_localizations: {
-						fr: "selectionnez un role."
+						fr: "Sélectionner un rôle.",
+						ja: "役割を選択する。"
 					},
 					required: true
 				},
@@ -119,22 +137,26 @@ export const InfoCommand = {
 					type: ApplicationCommandOptionType.Boolean,
 					name: "verbose",
 					name_localizations: {
-						fr: "complet"
+						fr: "complet",
+						ja: "詳細"
 					},
-					description: "show complete information",
+					description: "Show complete information",
 					description_localizations: {
-						fr: "montre toutes les informations"
+						fr: "Montre toutes les informations",
+						ja: "完全な情報を表示する"
 					}
 				},
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
 					name_localizations: {
-						fr: "masquer"
+						fr: "masquer",
+						ja: "非表示"
 					},
-					description: "Hides the output.",
+					description: "Hides the output",
 					description_localizations: {
-						fr: "Masque(cacher) le résultat."
+						fr: "Masque le résultat",
+						ja: "出力を非表示にする"
 					}
 				}
 			]
@@ -142,31 +164,36 @@ export const InfoCommand = {
 		{
 			type: ApplicationCommandOptionType.Subcommand,
 			name: "bot",
-			description: "see bot's info",
+			description: "See bot's info",
 			description_localizations: {
-				fr: "voyez les information du bot."
+				fr: "Voir les informations du bot.",
+				ja: "ボットの情報を表示。"
 			},
 			options: [
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "verbose",
 					name_localizations: {
-						fr: "complet"
+						fr: "complet",
+						ja: "詳細"
 					},
-					description: "show complete information",
+					description: "Show complete information",
 					description_localizations: {
-						fr: "montre toutes les informations"
+						fr: "Montre toutes les informations",
+						ja: "完全な情報を表示する"
 					}
 				},
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
 					name_localizations: {
-						fr: "masquer"
+						fr: "masquer",
+						ja: "非表示"
 					},
-					description: "Hides the output.",
+					description: "Hides the output",
 					description_localizations: {
-						fr: "Masque(cacher) le résultat."
+						fr: "Masque le résultat",
+						ja: "出力を非表示にする"
 					}
 				}
 			]
@@ -174,31 +201,36 @@ export const InfoCommand = {
 		{
 			type: ApplicationCommandOptionType.Subcommand,
 			name: "server",
-			description: "see server info",
+			description: "See server info",
 			description_localizations: {
-				fr: "voyez les information du bot."
+				fr: "Voir les informations du serveur.",
+				ja: "サーバーの情報を表示。"
 			},
 			options: [
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "verbose",
 					name_localizations: {
-						fr: "complet"
+						fr: "complet",
+						ja: "詳細"
 					},
-					description: "show complete information",
+					description: "Show complete information",
 					description_localizations: {
-						fr: "montre toutes les informations"
+						fr: "Montre toutes les informations",
+						ja: "完全な情報を表示する"
 					}
 				},
 				{
 					type: ApplicationCommandOptionType.Boolean,
 					name: "hide",
 					name_localizations: {
-						fr: "masquer"
+						fr: "masquer",
+						ja: "非表示"
 					},
-					description: "Hides the output.",
+					description: "Hides the output",
 					description_localizations: {
-						fr: "Masque(cacher) le résultat."
+						fr: "Masque le résultat",
+						ja: "出力を非表示にする"
 					}
 				}
 			]

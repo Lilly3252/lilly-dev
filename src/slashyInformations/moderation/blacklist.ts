@@ -4,22 +4,26 @@ export const BlacklistCommand = {
 	// pingCommand / banCommand / settingCommand ...
 	name: "blacklist",
 	name_localizations: {
-		fr: "liste-noire"
+		fr: "liste-noire",
+		ja: "ブラックリスト"
 	},
 	description: "Add a user to the blacklist.",
 	description_localizations: {
-		fr: "Ajouter un membre a la liste noire"
+		fr: "Ajouter un membre à la liste noire",
+		ja: "ユーザーをブラックリストに追加します。"
 	},
 	options: [
 		{
 			type: ApplicationCommandOptionType.User,
 			name: "target",
 			name_localizations: {
-				fr: "target"
+				fr: "target",
+				ja: "ターゲット"
 			},
 			description: "User to be added",
 			description_localizations: {
-				fr: "Membre a ajouter"
+				fr: "Membre à ajouter",
+				ja: "追加するユーザー"
 			},
 			required: true
 		},
@@ -27,11 +31,13 @@ export const BlacklistCommand = {
 			type: ApplicationCommandOptionType.Boolean,
 			name: "hide",
 			name_localizations: {
-				fr: "masquer"
+				fr: "masquer",
+				ja: "非表示"
 			},
 			description: "Hides the output.",
 			description_localizations: {
-				fr: "Masque(cacher) le résultat."
+				fr: "Masque(cacher) le résultat.",
+				ja: "出力を非表示にします。"
 			}
 		}
 	],

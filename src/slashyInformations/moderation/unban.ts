@@ -2,20 +2,23 @@ import { ApplicationCommandOptionType } from "discord-api-types/v10";
 
 export const UnbanCommand = {
 	name: "unban",
-	description: "unban a user.",
+	description: "Unban a user.",
 	description_localizations: {
-		fr: "revoker un ban."
+		fr: "Révoquer un ban.",
+		ja: "ユーザーのバンを解除する。"
 	},
 	options: [
 		{
 			type: ApplicationCommandOptionType.String,
 			name: "id",
 			name_localizations: {
-				fr: "id"
+				fr: "id",
+				ja: "ID"
 			},
-			description: "put a id",
+			description: "Put an ID",
 			description_localizations: {
-				fr: "Inscrire un id"
+				fr: "Inscrire un ID",
+				ja: "IDを入力する"
 			},
 			required: true
 		},
@@ -23,22 +26,26 @@ export const UnbanCommand = {
 			type: ApplicationCommandOptionType.String,
 			name: "reason",
 			name_localizations: {
-				fr: "raison"
+				fr: "raison",
+				ja: "理由"
 			},
-			description: "reason for revoking the ban",
+			description: "Reason for revoking the ban",
 			description_localizations: {
-				fr: "raison pour revoker le ban"
+				fr: "Raison pour révoquer le ban",
+				ja: "バン解除の理由"
 			}
 		},
 		{
 			type: ApplicationCommandOptionType.Boolean,
 			name: "hide",
 			name_localizations: {
-				fr: "masquer"
+				fr: "masquer",
+				ja: "非表示"
 			},
 			description: "Hides the output",
 			description_localizations: {
-				fr: "Masque(cacher) le résultat"
+				fr: "Masque(cacher) le résultat",
+				ja: "出力を非表示にする"
 			}
 		}
 	],
