@@ -1,8 +1,7 @@
 import type { PingCommand } from "#slashyInformations/index.js";
-import i18next from "i18next";
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
-import { getLanguage } from "#utils/index.js";
+import i18next from "i18next";
 
 export default class extends Command<typeof PingCommand> {
 	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof PingCommand>): Promise<void> {
@@ -11,13 +10,11 @@ export default class extends Command<typeof PingCommand> {
 			fetchReply: true,
 			ephemeral: args.hide ?? true
 		});
-		const defaultLanguage = (args.hide ?? true) ? undefined : "en-US";
-		const locale = getLanguage(interaction, defaultLanguage);
 
 		const choices = [
-			i18next.t("command.utility.ping.responses.nah", { lng: locale }), // if Ephemeral it says the message in their locale , If not eph.. show in english
-			i18next.t("command.utility.ping.responses.okay", { lng: locale }),
-			i18next.t("command.utility.ping.responses.alive", { lng: locale })
+			i18next.t("command.utility.ping.responses.nah", { lng: interaction.locale }),
+			i18next.t("command.utility.ping.responses.okay", { lng: interaction.locale }),
+			i18next.t("command.utility.ping.responses.alive", { lng: interaction.locale })
 		];
 
 		const response = choices[Math.floor(Math.random() * choices.length)];
@@ -28,7 +25,7 @@ export default class extends Command<typeof PingCommand> {
 				response,
 				bot_latency: latency,
 				API_latency: Math.round(interaction.client.ws.ping),
-				lng: locale
+				lng: interaction.locale
 			})
 		});
 	}

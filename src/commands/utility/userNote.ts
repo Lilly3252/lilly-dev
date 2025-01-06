@@ -1,6 +1,5 @@
 import User from "#database/models/users.js";
 import type { UserNoteCommand } from "#slashyInformations/index.js";
-import { getLanguage } from "#utils/index.js";
 import { Command } from "@yuudachi/framework";
 import type { ArgsParam, InteractionParam } from "@yuudachi/framework/types";
 import i18next from "i18next";
@@ -8,9 +7,6 @@ import "reflect-metadata";
 
 export default class extends Command<typeof UserNoteCommand> {
 	public override async chatInput(interaction: InteractionParam, args: ArgsParam<typeof UserNoteCommand>): Promise<void> {
-		await interaction.deferReply();
-
-		const locale = getLanguage(interaction, "en-US");
 		const action = args.action;
 		const target = args.target;
 		const note = args.note!;
@@ -21,40 +17,40 @@ export default class extends Command<typeof UserNoteCommand> {
 		const userNotesToDelete = await User.findOne({ userID: target.user.id, guildID: interaction.guildId });
 
 		if (!target.user) {
-			await interaction.editReply(i18next.t("command.utility.user_note.errors.user_not_specified", { lng: locale }));
+			await interaction.editReply(i18next.t("command.utility.user_note.errors.user_not_specified", { lng: interaction.locale }));
 			return;
 		}
 
 		switch (action) {
 			case "add":
 				if (!note) {
-					await interaction.editReply(i18next.t("command.utility.user_note.errors.note_not_provided", { lng: locale }));
+					await interaction.editReply(i18next.t("command.utility.user_note.errors.note_not_provided", { lng: interaction.locale }));
 					return;
 				}
 				await User.findOneAndUpdate({ userID: target.user.id, guildID: interaction.guildId }, { $push: { notes: { note, moderator } } }, { upsert: true, new: true });
-				await interaction.editReply(i18next.t("command.utility.user_note.note_added", { target: target.user.tag, lng: locale }));
+				await interaction.editReply(i18next.t("command.utility.user_note.note_added", { target: target.user.tag, lng: interaction.locale }));
 				break;
 
 			case "view":
 				if (!userNotes || !userNotes.notes || userNotes.notes.length === 0) {
-					await interaction.editReply(i18next.t("command.utility.user_note.errors.user_note_not_found", { target: target.user.tag, lng: locale }));
+					await interaction.editReply(i18next.t("command.utility.user_note.errors.user_note_not_found", { target: target.user.tag, lng: interaction.locale }));
 					return;
 				}
-				await interaction.editReply(i18next.t("command.utility.user_note.note_view", { target: target.user.tag, notesList: notesList, lng: locale }));
+				await interaction.editReply(i18next.t("command.utility.user_note.note_view", { target: target.user.tag, notesList: notesList, lng: interaction.locale }));
 				break;
 
 			case "delete":
 				if (!userNotesToDelete || !userNotesToDelete.notes || !userNotesToDelete.notes[noteIndex]) {
-					await interaction.editReply(i18next.t("command.utility.user_note.errors.index_note_not_found", { note: note, lng: locale }));
+					await interaction.editReply(i18next.t("command.utility.user_note.errors.index_note_not_found", { note: note, lng: interaction.locale }));
 					return;
 				}
 				userNotesToDelete.notes.splice(noteIndex, 1);
 				await userNotesToDelete.save();
-				await interaction.editReply(i18next.t("command.utility.user_note.note_deleted", { note: note, target: target.user.tag, lng: locale }));
+				await interaction.editReply(i18next.t("command.utility.user_note.note_deleted", { note: note, target: target.user.tag, lng: interaction.locale }));
 				break;
 
 			default:
-				await interaction.editReply(i18next.t("command.config.common.errors.generic", { lng: locale }));
+				await interaction.editReply(i18next.t("command.config.common.errors.generic", { lng: interaction.locale }));
 				break;
 		}
 	}

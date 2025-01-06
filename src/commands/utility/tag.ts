@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { TagCommand } from "#slashyInformations/index.js";
 
 import { Tag } from "#utils/types/functiontypes.js";
 import * as TOML from "@ltd/j-toml";
 import { Command } from "@yuudachi/framework";
-import type { ArgsParam, CommandMethod, InteractionParam, LocaleParam } from "@yuudachi/framework/types";
+import type { CommandMethod, InteractionParam } from "@yuudachi/framework/types";
 import { Collection } from "discord.js";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 

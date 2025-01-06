@@ -1,6 +1,8 @@
 import guilds from "#database/models/guilds.js";
+import { BackupCode, OtpSecret } from "#database/models/otpModels.js";
 import { default as user, default as users } from "#database/models/users.js";
 import { InteractionParam } from "@yuudachi/framework/types";
+import { randomBytes } from "crypto";
 import { AuditLogChange, ChatInputCommandInteraction, Guild, GuildMember, GuildTextBasedChannel, Interaction, PermissionResolvable, Role, RoleMention } from "discord.js";
 import i18next from "i18next";
 import { guild } from "./types/database.js";
@@ -269,4 +271,41 @@ export function isCommunicationDisabledUntil(change: AuditLogChange): boolean {
  * @returns `true` if the value is undefined, otherwise `false`. */
 export function isUndefined(value: unknown): boolean {
 	return value === undefined;
+}
+// Store OTP secret
+export async function storeOTPSecret(userId: string, secret: string): Promise<void> {
+	await OtpSecret.findOneAndUpdate({ userId }, { secret }, { upsert: true });
+}
+
+// Retrieve OTP secret
+export async function getOTPSecret(userId: string): Promise<string | undefined> {
+	const result = await OtpSecret.findOne({ userId });
+	return result?.secret;
+}
+
+// Store backup codes
+export async function storeBackupCodes(userId: string, codes: string[]): Promise<void> {
+	const backupCodes = codes.map((code) => ({ userId, code }));
+	await BackupCode.insertMany(backupCodes);
+}
+
+// Verify backup code
+export async function verifyBackupCode(userId: string, code: string): Promise<boolean> {
+	const result = await BackupCode.findOne({ userId, code, used: false });
+	if (result) {
+		result.used = true;
+		await result.save();
+		return true;
+	}
+	return false;
+}
+
+// Function to generate backup codes
+export function generateBackupCodes(numCodes: number): string[] {
+	const codes = [];
+	for (let i = 0; i < numCodes; i++) {
+		const code = randomBytes(4).toString("hex").toUpperCase(); // Generate a 4-byte random code
+		codes.push(code);
+	}
+	return codes;
 }

@@ -6,7 +6,8 @@
 					"generic": "Une erreur s'est produite. Veuillez réessayer plus tard.",
 					"no_permission": "Vous n'avez pas la permission d'utiliser cette commande.",
 					"permission_not_found": "Permission {{perm}} introuvable.",
-					"no_settings": "Aucun paramètre de guilde n'a encore été initialisé. Laissez-moi en créer un pour vous ! Cela devrait fonctionner cette fois..."
+					"no_settings": "Aucun paramètre n'a été initialisé pour le moment. Laissez-moi en créer un pour vous ! Cela devrait fonctionner cette fois..."
+
 				}
 			},
 			"events": {
@@ -17,7 +18,7 @@
 				"disabled": "✅ {{event}} est maintenant désactivé.",
 				"channel_set": "✅ {{channel}} a été défini sur {{channel_id}}.",
 				"channel_removed": "✅ Le canal a été supprimé, maintenant défini sur `null`.",
-				"defaultLanguage":"La langue par défaut de Lilly est désormais {{language}}!",
+				"defaultLanguage":"Ma langue par défaut est désormais {{language}}!",
 				"audit_log": {
 					"guild_updated": "Guilde mise à jour",
 					"channel_created": "Canal créé",
@@ -48,7 +49,7 @@
 					"emoji_updated": "Émoji mis à jour",
 					"emoji_deleted": "Émoji supprimé",
 					"message_deleted": "Message supprimé",
-					"bulk_messages_deleted": "Messages en masse supprimés",
+					"bulk_messages_deleted": "Groupe de messages supprimés",
 					"message_pinned": "Message épinglé",
 					"message_unpinned": "Message désépinglé",
 					"integration_created": "Intégration créée",
@@ -60,9 +61,9 @@
 					"sticker_created": "Autocollant créé",
 					"sticker_updated": "Autocollant mis à jour",
 					"sticker_deleted": "Autocollant supprimé",
-					"scheduled_event_created": "Événement programmé créé",
-					"scheduled_event_updated": "Événement programmé mis à jour",
-					"scheduled_event_deleted": "Événement programmé supprimé"
+					"scheduled_event_created": "Évènement programmé créé",
+					"scheduled_event_updated": "Évènement programmé mis à jour",
+					"scheduled_event_deleted": "Évènement programmé supprimé"
 				}
 			}
 		},
@@ -119,7 +120,7 @@
 				"voteNow": "Votez maintenant"
 			},
 			"ping": {
-				"success": "{{response}} La latence du bot est de {{bot_latency}} ms. La latence de l'API est de {{API_latency}} ms.",
+				"success": "{{response}} Ma latence est de {{bot_latency}} ms. La latence de l'API est de {{API_latency}} ms.",
 				"responses": {
 					"nah": "non..",
 					"okay": "je vais bien.. passez à autre chose",
@@ -157,7 +158,7 @@
 					"started": "Vous avez commencé la quête : {{questName}} !",
 					"quest_name": {
 						"feed_pet": "Nourrissez votre animal",
-						"train_pet": "Entraînez votre animal",
+						"train_pet": "Entrainez votre animal",
 						"pet_show": "Participez à un concours pour animaux",
 						"walk_pet": "Promenez votre animal",
 						"play_fetch_pet": "Jouez à rapporter avec votre animal",
@@ -168,7 +169,7 @@
 					},
 					"quest_description": {
 						"feed_pet": "Nourrissez votre animal pour le garder heureux et en bonne santé.",
-						"train_pet": "Passez du temps à entraîner votre animal pour améliorer ses compétences.",
+						"train_pet": "Passez du temps à entrainer votre animal pour améliorer ses compétences.",
 						"pet_show": "Inscrivez votre animal à un concours local et essayez de gagner un prix.",
 						"walk_pet": "Promenez votre animal pour augmenter son bonheur.",
 						"play_fetch_pet": "Passez du temps à jouer à rapporter pour garder votre animal actif.",
@@ -204,7 +205,7 @@
 				"role": {
 					"other": "**❯ Position :** {{- position}}\n**❯ Permissions :** {{- permissions}}",
 					"other2": "\n\u200b\n\u200b {{- permissions}}",
-					"value": "**❯ Nom :** {{- name}}\n**❯ ID du rôle :** {{role_id}}\n**❯ Couleur :** {{color}}\n**❯ Affiché :** {{hoisted}}\n**❯ Mentionnable :** {{mentionable}}"
+					"value": "**❯ Nom :** {{- name}}\n**❯ ID du rôle :** {{role_id}}\n**❯ Couleur :** {{color}}\n**❯ Affiché :** {{hoisted}}\n**❯ Mentionable :** {{mentionable}}"
 				},
 				"server": {
 					"info": "**❯ Nom :** {{- name}}\n**❯ ID :** {{id}}\n**❯ Propriétaire :** {{owner}}\n**❯ Niveau de boost :** {{booster_tier}}\n**❯ Filtre explicite :** {{explicit_filter}}\n**❯ Niveau de vérification :** {{verification_level}}\n**❯ Date de création :** {{- created_at}}\n\u200B",
@@ -228,9 +229,9 @@
 					"no_info": "Aucune information pour le moment.",
 					"channel_title": "Canaux",
 					"channel_description": "**\u3000❯ Canal de bienvenue :** <#{{welcome_channel}}>\n **\u3000❯ Canal de journalisation :** <#{{log_channel}}>\n **Anti-raid :** {{anti_raid_enabled}}\n **Journaux d'audit :** {{audit_log_enabled}}",
-					"event_title": "Mises à jour des événements",
-					"event_description": "**\u3000❯ Bot :** {{bot}}\n **\u3000❯ Rôles :** {{role}}\n **\u3000❯ Guilde :** {{guild}}\n **\u3000❯ Émojis :** {{emoji}}\n **\u3000❯ Fils :** {{thread}}\n **\u3000❯ Messages :** {{message}}\n **\u3000❯ Webhooks :** {{webhooks}}\n **\u3000❯ Événements de scène :** {{stage}}\n ",
-					"event_description2": "**\u3000❯ Autocollants :** {{sticker}}\n **\u3000❯ Canaux :** {{channel}}\n **\u3000❯ Invitations :** {{invitations}}\n **\u3000❯ Intégrations :** {{integration}}\n **\u3000❯ Membres de la guilde :** {{guild_member}}\n **\u3000❯ Modération automatique :** {{auto_moderation}}\n **\u3000❯ Événements programmés :** {{scheduled}}\n **\u3000❯ Permissions des commandes :** {{cmd_perm}}"
+					"event_title": "Mises à jour des évènements",
+					"event_description": "**\u3000❯ Bot :** {{bot}}\n **\u3000❯ Rôles :** {{role}}\n **\u3000❯ Guilde :** {{guild}}\n **\u3000❯ Émojis :** {{emoji}}\n **\u3000❯ Fils :** {{thread}}\n **\u3000❯ Messages :** {{message}}\n **\u3000❯ Webhooks :** {{webhooks}}\n **\u3000❯ Évènements de scène :** {{stage}}\n ",
+					"event_description2": "**\u3000❯ Autocollants :** {{sticker}}\n **\u3000❯ Canaux :** {{channel}}\n **\u3000❯ Invitations :** {{invitations}}\n **\u3000❯ Intégrations :** {{integration}}\n **\u3000❯ Membres de la guilde :** {{guild_member}}\n **\u3000❯ Modération automatique :** {{auto_moderation}}\n **\u3000❯ Évènements programmés :** {{scheduled}}\n **\u3000❯ Permissions des commandes :** {{cmd_perm}}"
 				}
 			},
 			"modal": {

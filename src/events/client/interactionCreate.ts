@@ -1,6 +1,7 @@
 import { Client, Events } from "discord.js";
 import { inject, injectable } from "tsyringe";
 
+import { getLanguage } from "#utils/index.js";
 import type { Command } from "@yuudachi/framework";
 import { kCommands, logger, transformApplicationInteraction } from "@yuudachi/framework";
 import type { Event } from "@yuudachi/framework/types";
@@ -25,14 +26,16 @@ export default class implements Event {
 			}
 
 			if (interaction.isChatInputCommand()) {
+				await interaction.deferReply({ ephemeral: interaction.options.getBoolean("hide") ?? true });
 				const command = this.commands.get(interaction.commandName);
 
 				logger.info(
 					{ command: { name: interaction.commandName, type: interaction.type }, userId: interaction.user.id },
 					`Executing ${interaction.isAutocomplete() ? "autocomplete" : "chatInput command"} ${interaction.commandName}`
 				);
-
-				await command?.chatInput(interaction, transformApplicationInteraction(interaction.options.data), effectiveLocale);
+				const defaultLanguage = (interaction.options.getBoolean("hide") ?? true) ? undefined : "en-US";
+				const locale = getLanguage(interaction, defaultLanguage);
+				await command?.chatInput(interaction, transformApplicationInteraction(interaction.options.data), locale);
 			}
 			if (interaction.isModalSubmit()) {
 				switch (interaction.customId) {

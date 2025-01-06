@@ -11,7 +11,7 @@ export default class extends Command<typeof InfoCommand> {
 				await user(interaction, args.user);
 				break;
 			case "channel":
-				await channel(interaction, args.channel);
+				await channel(interaction);
 				break;
 			case "role":
 				await role(interaction, args.role);

@@ -1,0 +1,251 @@
+{
+    "command": {
+        "config": {
+            "common": {
+                "errors": {
+                    "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
+                    "no_permission": "Du hast keine Berechtigung, diesen Befehl zu verwenden.",
+                    "permission_not_found": "Berechtigung {{perm}} nicht gefunden.",
+                    "no_settings": "Keine Einstellungen wurden bisher initialisiert. Lass mich eine für dich erstellen! Dieses Mal sollte es funktionieren..."
+
+                }
+            },
+            "events": {
+                "embed": {
+                    "audit": {}
+                },
+                "enabled": "✅ {{event}} ist jetzt aktiviert.",
+                "disabled": "✅ {{event}} ist jetzt deaktiviert.",
+                "channel_set": "✅ {{channel}} wurde auf {{channel_id}} gesetzt.",
+                "channel_removed": "✅ Der Kanal wurde entfernt, nun auf `null` gesetzt.",
+                "defaultLanguage": "Lillys Standardsprache ist jetzt {{language}}!",
+                "audit_log": {
+                    "guild_updated": "Gilde aktualisiert",
+                    "channel_created": "Kanal erstellt",
+                    "channel_updated": "Kanal aktualisiert",
+                    "channel_deleted": "Kanal gelöscht",
+                    "channel_overwrite_created": "Kanaleintrag überschrieben",
+                    "channel_overwrite_updated": "Kanaleintrag aktualisiert",
+                    "channel_overwrite_deleted": "Kanaleintrag gelöscht",
+                    "member_kicked": "Mitglied hinausgeworfen",
+                    "members_pruned": "Mitglieder bereinigt",
+                    "member_banned": "Mitglied gebannt",
+                    "member_unbanned": "Mitglied entbannt",
+                    "member_updated": "Mitglied aktualisiert",
+                    "member_roles_updated": "Mitgliedsrollen aktualisiert",
+                    "member_moved": "Mitglied verschoben",
+                    "member_disconnected": "Mitglied getrennt",
+                    "bot_added": "Bot hinzugefügt",
+                    "role_created": "Rolle erstellt",
+                    "role_updated": "Rolle aktualisiert",
+                    "role_deleted": "Rolle gelöscht",
+                    "invite_created": "Einladung erstellt",
+                    "invite_updated": "Einladung aktualisiert",
+                    "invite_deleted": "Einladung gelöscht",
+                    "webhook_created": "Webhook erstellt",
+                    "webhook_updated": "Webhook aktualisiert",
+                    "webhook_deleted": "Webhook gelöscht",
+                    "emoji_created": "Emoji erstellt",
+                    "emoji_updated": "Emoji aktualisiert",
+                    "emoji_deleted": "Emoji gelöscht",
+                    "message_deleted": "Nachricht gelöscht",
+                    "bulk_messages_deleted": "Mehrere Nachrichten gelöscht",
+                    "message_pinned": "Nachricht angeheftet",
+                    "message_unpinned": "Nachricht losgelöst",
+                    "integration_created": "Integration erstellt",
+                    "integration_updated": "Integration aktualisiert",
+                    "integration_deleted": "Integration gelöscht",
+                    "stage_instance_created": "Bühneninstanz erstellt",
+                    "stage_instance_updated": "Bühneninstanz aktualisiert",
+                    "stage_instance_deleted": "Bühneninstanz gelöscht",
+                    "sticker_created": "Sticker erstellt",
+                    "sticker_updated": "Sticker aktualisiert",
+                    "sticker_deleted": "Sticker gelöscht",
+                    "scheduled_event_created": "Geplantes Ereignis erstellt",
+                    "scheduled_event_updated": "Geplantes Ereignis aktualisiert",
+                    "scheduled_event_deleted": "Geplantes Ereignis gelöscht"
+                }
+            }
+        },
+        "mod": {
+            "embed": {
+                "info": {
+                    "name": "**❯ Name:** {{- name}}\n**❯ ID:** {{id}}\n",
+                    "value": "**❯ Aktion:** {{action}}\n**❯ Grund:** {{reason}}"
+                },
+                "footer": "Moderationsaktion"
+            },
+            "restrict": {
+                "not_moderatable": "Der angegebene Benutzer kann nicht moderiert werden."
+            },
+            "timeout": {
+                "success": "{{user}} wurde für {{duration}} stummgeschaltet.",
+                "no_reason": "Kein Grund angegeben.",
+                "not_moderatable": "Der angegebene Benutzer kann nicht moderiert werden."
+            },
+            "kick": {
+                "success": "{{user}} wurde erfolgreich hinausgeworfen.",
+                "no_reason": "Kein Grund angegeben.",
+                "not_kickable": "Der angegebene Benutzer kann nicht hinausgeworfen werden."
+            },
+            "lock": {
+                "locked": "Der Kanal wurde gesperrt.",
+                "unlocked": "Der Kanal wurde entsperrt."
+            },
+            "slowmode": {
+                "success": "Der Slowmode wurde auf {{time}} Sekunden im {{channel}} eingestellt."
+            },
+            "ban": {
+                "success": "{{user}} wurde erfolgreich gebannt.",
+                "not_bannable": "{{- user}} kann nicht gebannt werden."
+            },
+            "unban": {
+                "success": "{{user}} wurde entbannt.",
+                "no_reason": "Kein Grund angegeben.",
+                "errors": {
+                    "no_ids": "Bitte eine gültige Benutzer-ID angeben.",
+                    "no_banned": "Es gibt keine gebannten Benutzer auf diesem Server.",
+                    "no_ban": "Benutzer {{user}} ist nicht gebannt."
+                }
+            },
+            "blacklist": {
+                "already_blacklisted": "Dieser Benutzer ist bereits auf der schwarzen Liste.",
+                "added": "Dieser Benutzer wurde zur schwarzen Liste hinzugefügt."
+            }
+        },
+        "utility": {
+            "poll": {
+                "durationError": "Die Dauer muss zwischen {{min}} und {{max}} liegen.",
+                "pollCreated": "Umfrage wurde erfolgreich erstellt!",
+                "voteNow": "Jetzt abstimmen"
+            },
+            "ping": {
+                "success": "{{response}} Bot-Latenz beträgt {{bot_latency}} ms. API-Latenz beträgt {{API_latency}} ms.",
+                "responses": {
+                    "nah": "nah..",
+                    "okay": "mir geht's gut.. weiter geht's",
+                    "alive": "ich lebe!"
+                }
+            },
+            "pet": {
+                "error": {
+                    "no_pet": "Du hast kein Haustier.",
+                    "item_not_found": "Artikel nicht im Shop gefunden.",
+                    "user_not_found": "Benutzer nicht gefunden.",
+                    "quest_completed": "Du hast diese Quest bereits abgeschlossen.",
+                    "skill_known": "Dein Haustier beherrscht diese Fähigkeit bereits.",
+                    "quest_expired": "Diese Quest ist abgelaufen.",
+                    "quest_not_exist": "Diese Quest existiert nicht.",
+                    "not_enough_coins": "Du hast nicht genug Münzen, um diesen Artikel zu kaufen.",
+                    "provide_both": "Bitte gib sowohl einen Haustiernamen als auch einen Haustiertyp an.",
+                    "invalid_pet_type": "Ungültiger Haustiertyp. Bitte wähle einen gültigen Haustiertyp.",
+                    "already_have_pet": "Du hast bereits ein Haustier.",
+                    "battle_required": "Beide Benutzer müssen ein Haustier haben, um zu kämpfen.",
+                    "daily_claimed": "Du hast deine tägliche Belohnung bereits abgeholt. Bitte versuche es später erneut.",
+                    "no_pet_play": "Du hast kein Haustier zum Spielen."
+                },
+                "skill_learned": "Dein Haustier hat die Fähigkeit erlernt: {{skill}}!",
+                "item_bought": "Du hast ein(e) {{itemName}} gekauft. Dieser Gegenstand wurde dem Inventar deines Haustiers hinzugefügt.",
+                "adopted_pet": "Du hast ein(e) {{petType}} namens {{petName}} adoptiert!",
+                "status": "Haustiername: {{petName}}\nTyp: {{petType}}\nHunger: {{hunger}}\nGlück: {{happiness}}",
+                "battle": {
+                    "win": "Dein Haustier {{userPetName}} hat den Kampf gegen {{opponentPetName}} gewonnen!",
+                    "lose": "Dein Haustier {{userPetName}} hat den Kampf gegen {{opponentPetName}} verloren.",
+                    "tie": "Es ist ein Unentschieden zwischen {{userPetName}} und {{opponentPetName}}!"
+                },
+                "quest": {
+                    "completed": "Du hast die Quest abgeschlossen: {{questName}} und {{reward}} verdient!",
+                    "started": "Du hast die Quest begonnen: {{questName}}!",
+                    "progress": "Fortschritt: {{progress}}%",
+                    "quest_name": {
+                        "feed_pet": "Füttere dein Haustier",
+                        "train_pet": "Trainiere dein Haustier",
+                        "pet_show": "An einem Haustierwettbewerb teilnehmen",
+                        "walk_pet": "Geh mit deinem Haustier spazieren",
+                        "play_fetch_pet": "Spiele Apportieren mit deinem Haustier",
+                        "visit_the_vet": "Besuche den Tierarzt",
+                        "teach_pet_trick": "Bringe deinem Haustier einen neuen Trick bei",
+                        "pet_costume_contest": "An einem Haustierkostümwettbewerb teilnehmen",
+                        "pet_spa_day": "Wellnesstag für dein Haustier"
+                    },
+                    "quest_description": {
+                        "feed_pet": "Füttere dein Haustier, um es glücklich und gesund zu halten.",
+                        "train_pet": "Verbringe Zeit damit, dein Haustier zu trainieren, um seine Fähigkeiten zu verbessern.",
+                        "pet_show": "Melde dein Haustier bei einem örtlichen Haustierwettbewerb an und versuche, einen Preis zu gewinnen.",
+                        "walk_pet": "Geh mit deinem Haustier spazieren, um sein Glück zu steigern.",
+                        "play_fetch_pet": "Verbringe Zeit mit dem Apportieren, um dein Haustier aktiv zu halten.",
+                        "visit_the_vet": "Bring dein Haustier zu einer Routineuntersuchung zum Tierarzt.",
+                        "teach_pet_trick": "Verbringe Zeit damit, deinem Haustier einen neuen Trick beizubringen, um andere zu beeindrucken.",
+                        "pet_costume_contest": "Verkleide dein Haustier für einen Kostümwettbewerb.",
+                        "pet_spa_day": "Bringe dein Haustier zur Entspannung und Pflege in ein Spa."
+                    }
+                },
+                "used_item": "Du hast {{itemName}} benutzt. Gesundheit ist jetzt {{health}}.",
+                "daily_reward": "Du hast deine tägliche Belohnung von {{dailyReward}} Münzen abgeholt!",
+                "fed_pet": "Du hast dein Haustier {{itemName}} gefüttert. Hunger ist jetzt {{hunger}} und Gesundheit ist jetzt {{health}}.",
+                "played_with_pet": "Du hast mit {{petName}} gespielt. Glück ist jetzt {{happiness}}."
+            },
+            "info": {
+                "member": {
+                    "name": "Mitglied",
+                    "value": "**❯ Benutzername:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Status:** {{status}}",
+                    "other": "**❯ Erstellt am:** {{- created_at}}\n**❯ Beigetreten am:** {{- joined_at}}\n**❯ Ausstehend:** {{- pending}}\n**❯ Stummgeschaltet:** {{- is_timed_out}}\n**❯ Bot:** {{- is_bot}}\n"
+                },
+                "user": {
+                    "name": "Benutzer",
+                    "value": "**❯ Benutzername:** {{username}}\n**❯ ID:** {{id}}\n**❯ Avatar:** {{- avatar}}\n**❯ Erstellungszeit:** {{- time_create}}"
+                },
+                "bot": {
+                    "name": "Mitglied",
+                    "system": "**❯ Plattform:** {{platform}}\n**❯ Betriebszeit:** {{uptime}}\n**❯ CPU:**\n\u3000 Kerne: {{cores}}\n\u3000 Modell: {{model}}\n\u3000 Geschwindigkeit: {{speed}}\n**❯ Speicher:**\n\u3000 Gesamt: {{total_memory}}\n\u3000 Verwendet: {{used_memory}}\n",
+                    "info": "**❯ Besitzer:** {{- owner}}\n**❯ Server:** {{servers}}\n**❯ Benutzer:** {{users}}\n**❯ Kanäle:** {{channels}}\n**❯ Erstellungsdatum:** {{- create_date}}\n**❯ Node.js:** {{node}}\n**❯ TypeScript-Version:** {{ts}}\n**❯ Discord.js:** {{djs}}\n\u200B"
+                },
+                "channel": {
+                    "value": "**❯ ID:** {{id}}\n**❯ Name:** {{name}} \n**❯ NSFW:** {{nsfw}}\n**❯ Slowmode:** {{slowmode}}\n**❯ Privater Kanal:** {{private}}\n**❯ Themenkanal:** {{topic}}"
+                },
+                "role": {
+                    "other": "**❯ Position:** {{- position}}\n**❯ Berechtigungen:** {{- permissions}}",
+                    "other2": "\n\u200b\n\u200b {{- permissions}}",
+                    "value": "**❯ Name:** {{- name}}\n**❯ Rollen-ID:** {{role_id}}\n**❯ Farbe:** {{color}}\n**❯ Hervorgehoben:** {{hoisted}}\n**❯ Erwähnbar:** {{mentionable}}"
+                },
+                "server": {
+                    "info": "**❯ Name:** {{- name}}\n**❯ ID:** {{id}}\n**❯ Besitzer:** {{owner}}\n**❯ Boost-Stufe:** {{booster_tier}}\n**❯ Explizitfilter:** {{explicit_filter}}\n**❯ Verifizierungsstufe:** {{verification_level}}\n**❯ Erstellungszeit:** {{- created_at}}\n\u200B",
+                    "stats": "**❯ Rollenanzahl:** {{role_count}}\n**❯ Emoji-Anzahl:** {{emoji_count}}\n**❯ Anzahl der regulären Emojis:** {{regular_emoji}}\n**❯ Anzahl der animierten Emojis:** {{animated_emoji}}\n**❯ Mitgliederanzahl:** {{member_count}}\n**❯ Menschen:** {{humans}}\n**❯ Bots:** {{bots}}\n**❯ Textkanäle:** {{txt_chan}}\n**❯ Sprachkanäle:** {{voice_chan}}\n**❯ Bühnenkanäle:** {{stage_chan}}\n**❯ Boost-Anzahl:** {{boost_count}}\n\u200B",
+                    "presence": "**❯ Online:** {{online}}\n**❯ Idle:** {{idle}}\n**❯ Nicht stören:** {{dnd}}\n**❯ Offline:** {{offline}}\n**❯ Keine Präsenz erkannt:** {{no_presence}}\n\u200B"
+                }
+            },
+            "user_note": {
+                "errors": {
+                    "user_not_specified": "Bitte gib einen Benutzer an.",
+                    "note_not_provided": "Bitte füge eine Notiz hinzu.",
+                    "user_note_not_found": "Keine Notizen für {{target}} gefunden.",
+                    "index_note_not_found": "Keine Notizen bei Index {{note}} gefunden."
+                },
+                "note_added": "Notiz für {{target}} hinzugefügt.",
+                "note_view": "Notizen für {{target}}:\n{{notesList}}",
+                "note_deleted": "Notiz {{note}} für {{target}} gelöscht."
+            },
+            "log": {
+                "setting_log": {
+                    "no_info": "Noch keine Informationen.",
+                    "channel_title": "Kanäle",
+                    "channel_description": "**\u3000❯ Willkommen-Kanal:** <#{{welcome_channel}}>\n **\u3000❯ Mod-Log-Kanal:** <#{{log_channel}}>\n **Anti-Raid:** {{anti_raid_enabled}}\n **Prüfprotokolle:** {{audit_log_enabled}}",
+                    "event_title": "Veranstaltungs-Updates",
+                    "event_description": "**\u3000❯ Bot:** {{bot}}\n **\u3000❯ Rollen:** {{role}}\n **\u3000❯ Gilde:** {{guild}}\n **Emojis:** {{emoji}}\n **Threads:** {{thread}}\n **Nachrichten:** {{message}}\n **Webhooks:** {{webhooks}}\n **Bühnenveranstaltungen:** {{stage}}\n ",
+                    "event_description2": "**\u3000❯ Sticker:** {{sticker}}\n **Kanäle:** {{channel}}\n **Einladungen:** {{invitations}}\n **Integrationen:** {{integration}}\n **Gildenmitglieder:** {{guild_member}}\n **Auto-Moderation:** {{auto_moderation}}\n **Geplante Veranstaltungen:** {{scheduled}}\n **Befehlsberechtigungen:** {{cmd_perm}}"
+                }
+            },
+            "modal": {
+                "character_create": {
+                    "title": "Charaktererstellung",
+                    "nameInput": {
+                        "label": "Wie heißt dein Charakter?"
+                    },
+                    "hobbiesInput": {
+                        "label": "Welche Hobbys hat dein Charakter?"
+                    }
+                }
+            }
+        }
+    }
+}

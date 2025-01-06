@@ -2,11 +2,7 @@ import process from "node:process";
 
 import * as command from "#slashyInformations/index.js";
 import { Routes } from "discord-api-types/v10";
-import { config } from "dotenv";
-
 import { REST } from "@discordjs/rest";
-
-config();
 
 const rest = new REST({ version: "10" }).setToken(process.env.TOKEN!);
 try {

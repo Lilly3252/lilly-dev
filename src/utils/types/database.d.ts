@@ -81,3 +81,12 @@ export interface user {
 		expiryDate: Date;
 	}>;
 }
+export interface IBackupCode extends Document {
+	userId: string;
+	code: string;
+	used: boolean;
+}
+export interface IOtpSecret extends Document {
+	userId: string;
+	secret: string;
+}

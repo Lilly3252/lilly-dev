@@ -1,6 +1,5 @@
 import user from "#database/models/users.js";
 import { PetCommand } from "#slashyInformations/index.js";
-import { getLanguage } from "#utils/index.js";
 import { foodItems } from "#utils/shop/food.js";
 import { medicineItems } from "#utils/shop/medecine.js";
 import { toyItems } from "#utils/shop/toys.js";
@@ -18,22 +17,18 @@ export async function buy(interaction: InteractionParam, args: ArgsParam<typeof 
 			const fooditemToBuy = shopItems.find((item) => item.itemName === fooditemNameToBuy);
 			const foodexistingItemToBuy = database?.pet?.inventory.food.find((item) => item.itemName === fooditemNameToBuy);
 
-			await interaction.deferReply({ ephemeral: args.food.hide ?? true });
-			const defaultLanguage = (args.food.hide ?? true) ? undefined : "en-US";
-			const locale = getLanguage(interaction, defaultLanguage);
-
 			if (!fooditemToBuy) {
-				await interaction.reply(i18next.t("command.utility.pet.error.item_not_found", { lng: locale }));
+				await interaction.reply(i18next.t("command.utility.pet.error.item_not_found", { lng: interaction.locale }));
 				return;
 			}
 
 			if (!database) {
-				await interaction.reply(i18next.t("command.utility.pet.error.user_not_found", { lng: locale }));
+				await interaction.reply(i18next.t("command.utility.pet.error.user_not_found", { lng: interaction.locale }));
 				return;
 			}
 
 			if (database.coins < fooditemToBuy.price) {
-				await interaction.reply(i18next.t("command.utility.pet.error.not_enough_coins", { lng: locale }));
+				await interaction.reply(i18next.t("command.utility.pet.error.not_enough_coins", { lng: interaction.locale }));
 				return;
 			}
 
@@ -45,7 +40,7 @@ export async function buy(interaction: InteractionParam, args: ArgsParam<typeof 
 			}
 
 			await database.save();
-			await interaction.reply(i18next.t("command.utility.pet.item_bought", { itemName: fooditemToBuy, lng: locale }));
+			await interaction.reply(i18next.t("command.utility.pet.item_bought", { itemName: fooditemToBuy, lng: interaction.locale }));
 			break;
 		}
 		case "medecine": {
@@ -53,23 +48,19 @@ export async function buy(interaction: InteractionParam, args: ArgsParam<typeof 
 			const meditemNameToBuy = args.medicine.itemname;
 			const meditemToBuy = shopItems.find((item) => item.itemName === meditemNameToBuy);
 			const medexistingItemToBuy = database?.pet?.inventory.medicine.find((item) => item.itemName === meditemNameToBuy);
-			await interaction.deferReply({ ephemeral: args.medicine.hide ?? true });
-
-			const defaultLanguage = (args.food.hide ?? true) ? undefined : "en-US";
-			const locale = getLanguage(interaction, defaultLanguage);
 
 			if (!meditemToBuy) {
-				await interaction.reply(i18next.t("command.utility.pet.error.item_not_found", { lng: locale }));
+				await interaction.reply(i18next.t("command.utility.pet.error.item_not_found", { lng: interaction.locale }));
 				return;
 			}
 
 			if (!database) {
-				await interaction.reply(i18next.t("command.utility.pet.error.user_not_found", { lng: locale }));
+				await interaction.reply(i18next.t("command.utility.pet.error.user_not_found", { lng: interaction.locale }));
 				return;
 			}
 
 			if (database.coins < meditemToBuy.price) {
-				await interaction.reply(i18next.t("command.utility.pet.error.not_enough_coins", { lng: locale }));
+				await interaction.reply(i18next.t("command.utility.pet.error.not_enough_coins", { lng: interaction.locale }));
 				return;
 			}
 
@@ -81,7 +72,7 @@ export async function buy(interaction: InteractionParam, args: ArgsParam<typeof 
 			}
 
 			await database.save();
-			await interaction.reply(i18next.t("command.utility.pet.item_bought", { itemName: meditemNameToBuy, lng: locale }));
+			await interaction.reply(i18next.t("command.utility.pet.item_bought", { itemName: meditemNameToBuy, lng: interaction.locale }));
 			break;
 		}
 
@@ -90,22 +81,19 @@ export async function buy(interaction: InteractionParam, args: ArgsParam<typeof 
 			const toyitemNameToBuy = args.toy.itemname;
 			const toyitemToBuy = shopItems.find((item) => item.itemName === toyitemNameToBuy);
 			const existingItemToBuy = database?.pet?.inventory.toys.find((item) => item.itemName === toyitemNameToBuy);
-			await interaction.deferReply({ ephemeral: args.toy.hide ?? true });
-			const defaultLanguage = (args.food.hide ?? true) ? undefined : "en-US";
-			const locale = getLanguage(interaction, defaultLanguage);
 
 			if (!toyitemToBuy) {
-				await interaction.reply(i18next.t("command.utility.pet.error.item_not_found", { lng: locale }));
+				await interaction.reply(i18next.t("command.utility.pet.error.item_not_found", { lng: interaction.locale }));
 				return;
 			}
 
 			if (!database) {
-				await interaction.reply(i18next.t("command.utility.pet.error.user_not_found", { lng: locale }));
+				await interaction.reply(i18next.t("command.utility.pet.error.user_not_found", { lng: interaction.locale }));
 				return;
 			}
 
 			if (database.coins < toyitemToBuy.price) {
-				await interaction.reply(i18next.t("command.utility.pet.error.not_enough_coins", { lng: locale }));
+				await interaction.reply(i18next.t("command.utility.pet.error.not_enough_coins", { lng: interaction.locale }));
 				return;
 			}
 
@@ -117,7 +105,7 @@ export async function buy(interaction: InteractionParam, args: ArgsParam<typeof 
 			}
 
 			await database.save();
-			await interaction.reply(i18next.t("command.utility.pet.item_bought", { itemName: toyitemNameToBuy, lng: locale }));
+			await interaction.reply(i18next.t("command.utility.pet.item_bought", { itemName: toyitemNameToBuy, lng: interaction.locale }));
 			break;
 		}
 	}

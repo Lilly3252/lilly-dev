@@ -34,7 +34,6 @@ export default class implements Event {
 
 	public async execute(): Promise<void> {
 		this.client.on(this.event, async (auditLogEntry: GuildAuditLogsEntry, guild) => {
-			console.log(`Audit log entry created in guild: ${guild.name}`);
 			console.log(auditLogEntry);
 			const change = auditLogEntry.changes[0]!;
 
@@ -75,7 +74,7 @@ export default class implements Event {
 						)
 						.join(", ");
 				}
-				return changeValue !== undefined ? changeValue : "undefined";
+				return changeValue !== undefined ? changeValue : "N/A";
 			};
 
 			const changesDoneNew = auditLogEntry.changes
@@ -97,7 +96,6 @@ export default class implements Event {
 					})
 					.join("\n") || "No changes";
 
-			const oldlogDate = change.old ? new Date(change.old as string | number | Date) : undefined;
 			const newlogDate = change.new ? new Date(change.new as string | number | Date) : undefined;
 
 			function changes(_target: GuildAuditLogsTargetType): string {

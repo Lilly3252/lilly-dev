@@ -19,7 +19,7 @@ export async function botInfo(application: ClientApplication, interaction: Inter
 			channels: interaction.client.channels.cache.size.toLocaleString(),
 			create_date: time(interaction.client.user.createdAt, TimestampStyles.RelativeTime),
 			node: process.version,
-			ts: `v${Package.default.dependencies["typescript"].replace("^", "")}`,
+			ts: `v${Package.default.devDependencies["typescript"].replace("^", "")}`,
 			djs: `v${Package.default.dependencies["discord.js"].replace("^", "")}`,
 			lng: language
 		}),

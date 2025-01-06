@@ -3,14 +3,12 @@ import { Backend } from "@skyra/i18next-backend";
 import { type Command, commandInfo, container, createClient, createCommands, dynamicImport, kCommands } from "@yuudachi/framework";
 import type { Event } from "@yuudachi/framework/types";
 import { GatewayIntentBits, Partials } from "discord.js";
-import { config } from "dotenv";
+
 import i18next from "i18next";
 import mongoose from "mongoose";
 import process from "node:process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import readdirp, { EntryInfo } from "readdirp";
-
-config();
 
 const client = createClient({
 	intents: [
