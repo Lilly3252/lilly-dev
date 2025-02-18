@@ -36,7 +36,7 @@
 		"algoliasearch": "^5.3.0",
 		"axios": "^1.7.7",
 		"cheerio": "^1.0.0",
-		"discord.js": "^14.16.1",
+		"discord.js": "^14.18.0",
 		"dotenv": "^16.4.5",
 		"eslint": "^9.16.0",
 		"i18next": "^23.14.0",
